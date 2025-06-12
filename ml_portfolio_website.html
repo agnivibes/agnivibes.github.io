@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agni</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: background 0.3s ease;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff0000;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #ff0000;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff0000;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at 30% 70%, rgba(255, 0, 0, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffffff, #ff0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
+            to { text-shadow: 0 0 40px rgba(255, 0, 0, 0.8); }
+        }
+
+        .hero-content h2 {
+            font-size: 1.5rem;
+            color: #cccccc;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: #ffffff;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            padding: 10px;
+            border: 2px solid transparent;
+            border-radius: 50%;
+        }
+
+        .social-links a:hover {
+            color: #ff0000;
+            border-color: #ff0000;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+            margin-top: 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #ff0000;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(45deg, #ff0000, #ffffff);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff0000, #000000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #ffffff;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .upload-placeholder {
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-placeholder:hover {
+            transform: scale(1.05);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #cccccc;
+        }
+
+        /* Research Interests */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .interest-card {
+            background: rgba(255, 0, 0, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .interest-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.2);
+            border-color: #ff0000;
+        }
+
+        .interest-card h3 {
+            color: #ff0000;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Education */
+        .education-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #ff0000;
+            transition: all 0.3s ease;
+        }
+
+        .education-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.1);
+        }
+
+        .education-item h3 {
+            color: #ff0000;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-item .institution {
+            color: #ffffff;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-item .year {
+            color: #cccccc;
+            font-style: italic;
+        }
+
+        /* Publications */
+        .publication-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .publication-item:hover {
+            border-color: #ff0000;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.1);
+        }
+
+        .publication-item h4 {
+            color: #ff0000;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .publication-item .authors {
+            color: #cccccc;
+            margin-bottom: 0.5rem;
+        }
+
+        .publication-item .journal {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        /* Contact */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .contact-item {
+            background: rgba(255, 0, 0, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.2);
+        }
+
+        .contact-item a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #ff0000;
+        }
+
+        /* Footer */
+        footer {
+            background: #000000;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .social-links {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .interests-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff0000;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="#" class="logo"></a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Agnideep “Agni” Aich</h1>
+            <h2>PhD Candidate (ABD)</h2>
+            <p style="color: #cccccc; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+                            </p>
+           <blockquote class="quote" style="font-style: italic; color: #ffffff; margin-top: 10px;">
+  “To truly laugh, you must be able to take your pain, and play with it.” – Charlie Chaplin
+</blockquote>
+
+            <div class="social-links">
+                <a href="mailto:agnideep.aich1@louisiana.edu" title="Email">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </a>
+                
+                <a href="https://www.linkedin.com/in/agnideep-aich/" title="LinkedIn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://scholar.google.com/citations?user=U2uZyIwAAAAJ&hl=en" title="Google Scholar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/>
+                    </svg>
+                </a>
+                <a href="https://drive.google.com/file/d/1REbTGA9oHqSKHmfcfyFbUvKOYUk-5pFI/view?usp=sharing" title="Download CV">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                    </svg>
+<a href="https://www.instagram.com/agni_vibes/" title="Instagram">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+             
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+               <div class="about-image">
+    <img src="profile.jpg" alt="Agni's Photo">
+</div>
+                <div class="about-text">
+                    <p>Hey there! I’m Agni, a PhD candidate in Mathematics with a concentration in Statistics and Machine Learning at the University of Louisiana at Lafayette, working under the guidance of <a href="https://math.louisiana.edu/node/298" target="_blank" style="color: #ff0000; text-decoration: underline;">Dr. Bruce Wade</a>. My research explores Statistical Machine Learning, Deep Learning, Applied Machine Learning, Biostatistics, Copula Theory, and Sports Analytics.</p>
+
+<p>But there’s more to me than equations and models. I’m deeply passionate about cars, sunglasses, colognes, soccer, MMA, and EDM music especially trance, future bass, and synthwave. Whether it's cruising in my Mercedes, crafting melodies in FL Studio, or chasing the perfect scent, I live for the little things that turn moments into memories.</p>
+
+<p>In everything I do, whether it’s solving a complex problem or producing an original beat, I bring intensity, curiosity, and creativity. I don’t just want to build the future, I want to live it!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="research" class="section">
+        <div class="container">
+            <h2 class="section-title">Research Interests</h2>
+            <div class="interests-grid">
+                <div class="interests-grid">
+    <div class="interest-card">
+  <h3>Statistical Machine Learning</h3>
+  <p>
+    Exploring the theoretical foundations of learning algorithms, with a focus on minimax rates, distribution-free methods, and dependence modeling. I’m particularly interested in how rigorous statistical theory can inform and strengthen modern machine learning systems.
+  </p>
+</div>
+
+<div class="interest-card">
+  <h3>Deep Learning</h3>
+  <p>
+    Designing and analyzing deep neural networks to tackle non-convex optimization challenges, build expressive generative models, and enhance learning under uncertainty. My work combines mathematical insight with practical neural architecture innovation.
+  </p>
+</div>
+
+<div class="interest-card">
+  <h3>Applied Machine Learning</h3>
+  <p>
+    Bridging the gap between theory and application by using copula theory and deploying machine learning techniques to real-world problems, from healthcare and finance to high-stakes decision-making scenarios. Emphasis on interpretability, robustness, and domain relevance.
+  </p>
+</div>
+
+<div class="interest-card">
+  <h3>Biostatistics</h3>
+  <p>
+    Investigating learning frameworks for complex biological datasets, particularly in genomics. My research focuses on feature selection and attention-based neural methods for identifying meaningful patterns in high-dimensional biomedical data.
+  </p>
+</div>
+
+<div class="interest-card">
+  <h3>Sports Analytics</h3>
+  <p>
+    Applying statistical and machine learning models to analyze in-game performance and psychological pressure in elite sports. Current projects use play-by-play data to identify clutch moments and uncover latent performance patterns in competitive environments.
+  </p>
+</div>
+
+</div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="section">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="education-item">
+                <h3>Ph.D. in Mathematics with a concentration in Statistics & Machine Learning</h3>
+                <div class="institution">University of Louisiana at Lafayette</div>
+                <div class="year">2021 - 2026 (Anticipated)</div>
+                <p>Dissertation Title: Modern Advances in Copula Theory: From Generator Construction to Machine Learning Applications in Dependence Modeling</p>
+            </div>
+            <div class="education-item">
+                <h3>M.S. in Mathematics</h3>
+                <div class="institution">University of Louisiana at Lafayette</div>
+                <div class="year">2019 - 2021</div>
+            </div>
+            <div class="education-item">
+                <h3>M.S. in Statistics</h3>
+                <div class="institution">University of Calcutta, India</div>
+                <div class="year">2016 - 2018</div>
+               </div>
+            <div class="education-item">
+                <h3>B.S. in Statistics</h3>
+                <div class="institution">Asutosh College, India</div>
+                <div class="year">2013 - 2016</div>
+                <p>Minors: Mathematics & Computer Science</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="publications" class="section">
+    <div class="container">
+        <h2 class="section-title">Recent Publications</h2>
+
+        <div class="publication-item">
+            <h4>
+               Symplectic Generative Networks (SGNs): A Hamiltonian Framework for Invertible Deep Generative Modeling (2025)
+                </a>
+            </h4>
+            <div class="authors">Agnideep Aich, Ashit Baran Aich, Bruce Wade</div>
+            <div class="journal">
+    <a href="https://doi.org/10.48550/arXiv.2505.22527" target="_blank" style="color: #ff0000; text-decoration: underline;">
+        https://doi.org/10.48550/arXiv.2505.22527
+    </a>
+</div>
+
+            <p>Proposes SGNs, a novel class of invertible deep generative models grounded in Hamiltonian dynamics. This work bridges deep learning and symplectic geometry, offering stable, expressive mappings for probabilistic modeling.</p>
+        </div>
+
+        <div class="publication-item">
+            <h4>
+                    Theoretical Foundations of the Deep Copula Classifier: A Generative Approach to Modeling Dependent Features (2025)
+                </a>
+            </h4>
+            <div class="authors">Agnideep Aich, Ashit Baran Aich, Bruce Wade</div>
+            <div class="journal"><a href="https://doi.org/10.48550/arXiv.2505.22997" target="_blank" style="color: #ff0000; text-decoration: underline;">https://doi.org/10.48550/arXiv.2505.22997</a></div>
+            <p>Introduces a generative framework for classification based on deep copula models. This work formulates theoretical guarantees and highlights the role of dependence structures in enhancing prediction performance.</p>
+        </div>
+
+        <div class="publication-item">
+            <h4>
+                    Can Copulas Be Used for Feature Selection? A Machine Learning Study on Diabetes Risk Prediction (2025)
+                </a>
+            </h4>
+            <div class="authors">Agnideep Aich, Md. Monzur Murshed, Amanda Mayeaux, Sameera Hewage</div>
+            <div class="journal"><a href="https://doi.org/10.48550/arXiv.2505.22554" target="_blank" style="color: #ff0000; text-decoration: underline;">https://doi.org/10.48550/arXiv.2505.22554</a></div>
+            <p>Explores the integration of copula-based dependency measures into feature selection pipelines. Demonstrates significant improvements in identifying relevant predictors for diabetes risk classification.</p>
+        </div>
+
+    </div>
+</section>
+
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div style="text-align: center; color: #cccccc; font-size: 1.2rem;">
+                <p>Feel free to send me an email or reach out through any of the platforms above, to discuss potential collaborations and research opportunities.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Agnideep Aich. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(0, 0, 0, 0.98)';
+            } else {
+                nav.style.background = 'rgba(0, 0, 0, 0.95)';
+            }
+        });
+
+        // Add animation to cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.interest-card, .education-item, .publication-item, .contact-item').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
