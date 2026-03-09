@@ -5,1288 +5,294 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agnideep Aich — PhD Candidate</title>
 
-  <!-- Google Font: One display font + one body font -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 
   <style>
-    /* ============================================================
-       CSS CUSTOM PROPERTIES — edit palette here
-    ============================================================ */
-    :root {
-      --bg-deep:       #050505;
-      --bg-base:       #101010;
-      --bg-panel:      #1b1b1b;
-      --bg-panel-alt:  #161616;
-      --crimson:       #ff1a1a;
-      --crimson-2:     #e10600;
-      --crimson-hi:    #ff3b3b;
-      --crimson-dim:   rgba(255, 26, 26, 0.12);
-      --text:          #f4f4f4;
-      --muted:         #bdbdbd;
-      --subtle:        #6b6b6b;
-      --border:        rgba(255,255,255,0.06);
-      --border-red:    rgba(255, 26, 26, 0.35);
-
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-body:    'DM Sans', sans-serif;
-
-      --nav-h: 60px;
-      --radius: 4px;
-      --transition: 0.25s ease;
-    }
-
-    /* ============================================================
-       RESET & BASE
-    ============================================================ */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; font-size: 16px; }
-
-    body {
-      font-family: var(--font-body);
-      background-color: var(--bg-deep);
-      color: var(--text);
-      line-height: 1.7;
-      overflow-x: hidden;
-      /* Subtle texture via SVG noise overlay */
-      background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    }
-
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-    ul { list-style: none; }
-
-    /* ============================================================
-       SCROLLBAR
-    ============================================================ */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg-deep); }
-    ::-webkit-scrollbar-thumb { background: var(--crimson-2); border-radius: 3px; }
-
-    /* ============================================================
-       UTILITY
-    ============================================================ */
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    .section-label {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      letter-spacing: 0.04em;
-      color: var(--text);
-      position: relative;
-      display: inline-block;
-      margin-bottom: 40px;
-    }
-
-    /* Red angular underline on section headings */
-    .section-label::after {
-      content: '';
-      display: block;
-      width: 60%;
-      height: 4px;
-      background: linear-gradient(90deg, var(--crimson), transparent);
-      margin-top: 8px;
-    }
-
-    section { padding: 90px 0; position: relative; }
-
-    .tag {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--crimson);
-      border: 1px solid var(--border-red);
-      padding: 2px 10px;
-      border-radius: 2px;
-      margin-bottom: 16px;
-    }
-
-    /* ============================================================
-       ANGULAR DIAGONAL SEPARATORS (CSS-only geometry)
-    ============================================================ */
-    .diagonal-sep {
-      width: 100%;
-      height: 70px;
-      background: var(--bg-deep);
-      clip-path: polygon(0 0, 100% 40%, 100% 100%, 0 100%);
-    }
-
-    /* ============================================================
-       SPLATTER DOTS — pure CSS pseudo-element on #hero
-    ============================================================ */
-    /* defined inline on hero section below */
-
-    /* ============================================================
-       FIXED NAV
-    ============================================================ */
-    #nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: var(--nav-h);
-      z-index: 1000;
-      background: rgba(5,5,5,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 28px;
-    }
-
-    /* Logo / monogram */
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 1.55rem;
-      letter-spacing: 0.1em;
-      color: var(--text);
-      position: relative;
-    }
-    .nav-logo span {
-      color: var(--crimson);
-    }
-    /* small red geometric accent behind logo */
-    .nav-logo::before {
-      content: '';
-      position: absolute;
-      left: -8px;
-      top: 50%;
-      transform: translateY(-50%) skewX(-15deg);
-      width: 4px;
-      height: 22px;
-      background: var(--crimson);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      align-items: center;
-    }
-    .nav-links a {
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      transition: color var(--transition);
-      position: relative;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      left: 0; bottom: -3px;
-      width: 0; height: 2px;
-      background: var(--crimson);
-      transition: width var(--transition);
-    }
-    .nav-links a:hover { color: var(--text); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-links a.active { color: var(--crimson); }
-    .nav-links a.active::after { width: 100%; }
-
-    /* Hamburger */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-    }
-    .hamburger span {
-      display: block;
-      width: 24px; height: 2px;
-      background: var(--text);
-      transition: all var(--transition);
-    }
-
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: var(--nav-h); left: 0; right: 0;
-      background: rgba(5,5,5,0.98);
-      border-bottom: 1px solid var(--border);
-      z-index: 999;
-      flex-direction: column;
-      gap: 0;
-      padding: 8px 0 16px;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      padding: 12px 28px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      border-left: 3px solid transparent;
-      transition: all var(--transition);
-    }
-    .mobile-menu a:hover {
-      color: var(--text);
-      border-left-color: var(--crimson);
-      background: rgba(255,26,26,0.05);
-    }
-
-    /* ============================================================
-       HERO
-    ============================================================ */
-    #hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding-top: var(--nav-h);
-      position: relative;
-      overflow: hidden;
-
-      /* Layered background: deep gradient + angular red shapes */
-      background:
-        /* subtle grid lines */
-        linear-gradient(rgba(255,26,26,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,26,26,0.04) 1px, transparent 1px),
-        /* base radial glow from bottom-left */
-        radial-gradient(ellipse 80% 60% at 0% 100%, rgba(225,6,0,0.08) 0%, transparent 70%),
-        linear-gradient(160deg, #050505 0%, #111111 50%, #0a0a0a 100%);
-      background-size: 60px 60px, 60px 60px, auto, auto;
-    }
-
-    /* Large angular red block — top right */
-    #hero::before {
-      content: '';
-      position: absolute;
-      top: -60px; right: -80px;
-      width: 420px; height: 420px;
-      background: linear-gradient(135deg, var(--crimson-2) 0%, #8b0000 60%, transparent 100%);
-      clip-path: polygon(30% 0%, 100% 0%, 100% 70%, 60% 100%, 0% 45%);
-      opacity: 0.18;
-      pointer-events: none;
-    }
-
-    /* Second angular block — bottom left */
-    #hero::after {
-      content: '';
-      position: absolute;
-      bottom: 40px; left: -60px;
-      width: 320px; height: 260px;
-      background: linear-gradient(45deg, var(--crimson) 0%, var(--crimson-2) 50%, transparent 100%);
-      clip-path: polygon(0% 30%, 70% 0%, 100% 50%, 50% 100%, 0% 100%);
-      opacity: 0.1;
-      pointer-events: none;
-    }
-
-    /* Splatter dots overlay — SVG inline via data URI */
-    .hero-splatter {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.55;
-      background-image:
-        radial-gradient(circle 3px at 18% 28%, var(--crimson) 100%, transparent 100%),
-        radial-gradient(circle 2px at 72% 15%, var(--crimson-hi) 100%, transparent 100%),
-        radial-gradient(circle 4px at 85% 62%, var(--crimson-2) 100%, transparent 100%),
-        radial-gradient(circle 2px at 33% 78%, var(--crimson) 100%, transparent 100%),
-        radial-gradient(circle 3px at 55% 90%, var(--crimson-hi) 100%, transparent 100%),
-        radial-gradient(circle 2px at 92% 38%, var(--crimson) 100%, transparent 100%),
-        radial-gradient(circle 1px at 10% 55%, var(--crimson-hi) 100%, transparent 100%),
-        radial-gradient(circle 2px at 48% 22%, var(--crimson) 100%, transparent 100%),
-        radial-gradient(circle 3px at 65% 75%, var(--crimson-2) 100%, transparent 100%),
-        radial-gradient(circle 1px at 25% 45%, var(--crimson-hi) 100%, transparent 100%),
-        radial-gradient(circle 2px at 78% 85%, var(--crimson) 100%, transparent 100%),
-        radial-gradient(circle 4px at 5% 90%, var(--crimson-2) 100%, transparent 100%);
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 2;
-      max-width: 860px;
-    }
-
-    .hero-pretitle {
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      letter-spacing: 0.3em;
-      color: var(--crimson);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .hero-pretitle::before {
-      content: '';
-      display: inline-block;
-      width: 40px; height: 2px;
-      background: var(--crimson);
-    }
-
-    .hero-name {
-      font-family: var(--font-display);
-      font-size: clamp(3.2rem, 9vw, 7.2rem);
-      line-height: 0.92;
-      letter-spacing: 0.02em;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    /* "Agni" nickname in red bracket */
-    .hero-nickname {
-      font-size: clamp(1rem, 3vw, 1.6rem);
-      color: var(--crimson);
-      font-family: var(--font-display);
-      letter-spacing: 0.3em;
-      margin-bottom: 28px;
-    }
-    .hero-nickname::before { content: '[ '; }
-    .hero-nickname::after  { content: ' ]'; }
-
-    .hero-subtitle {
-      font-size: 1.05rem;
-      font-weight: 300;
-      color: var(--muted);
-      margin-bottom: 36px;
-      max-width: 520px;
-    }
-    .hero-subtitle strong { color: var(--text); font-weight: 500; }
-
-    /* Quote block */
-    .hero-quote {
-      border-left: 3px solid var(--crimson);
-      padding: 10px 0 10px 20px;
-      max-width: 540px;
-      margin-bottom: 44px;
-      font-size: 0.9rem;
-      color: var(--subtle);
-      font-style: italic;
-      line-height: 1.6;
-    }
-    .hero-quote cite {
-      display: block;
-      margin-top: 6px;
-      font-style: normal;
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--crimson);
-    }
-
-    /* Social links */
-    .social-links {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .social-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 18px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      background: rgba(255,255,255,0.03);
-      border-radius: var(--radius);
-      transition: all var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-    .social-btn::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 0;
-      background: var(--crimson-dim);
-      transition: width var(--transition);
-    }
-    .social-btn:hover {
-      color: var(--text);
-      border-color: var(--crimson);
-    }
-    .social-btn:hover::before { width: 100%; }
-    .social-btn span { position: relative; z-index: 1; }
-    .social-btn svg { position: relative; z-index: 1; flex-shrink: 0; }
-
-    /* ============================================================
-       ABOUT
-    ============================================================ */
-    #about {
-      background: var(--bg-base);
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Angular red accent block in About */
-    #about::before {
-      content: '';
-      position: absolute;
-      top: 0; right: 0;
-      width: 200px; height: 200px;
-      background: var(--crimson-2);
-      clip-path: polygon(100% 0%, 100% 100%, 0% 0%);
-      opacity: 0.07;
-      pointer-events: none;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 60px;
-      align-items: start;
-    }
-
-    /* Circular profile photo */
-    .profile-wrap {
-      position: relative;
-      width: 220px;
-      height: 220px;
-      margin: 0 auto;
-    }
-    .profile-wrap::before {
-      content: '';
-      position: absolute;
-      inset: -6px;
-      border-radius: 50%;
-      border: 2px solid var(--crimson);
-      opacity: 0.7;
-    }
-    .profile-wrap::after {
-      content: '';
-      position: absolute;
-      inset: -14px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,26,26,0.2);
-    }
-    .profile-img {
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--bg-panel);
-      background: var(--bg-panel);
-      display: block;
-      /* Placeholder color if no image */
-      background-color: #1f1f1f;
-    }
-
-    /* Placeholder initials if no image */
-    .profile-placeholder {
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #1f1f1f 0%, #2a2a2a 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-display);
-      font-size: 4rem;
-      color: var(--crimson);
-      letter-spacing: 0.05em;
-      border: 3px solid var(--bg-panel);
-    }
-
-    .about-text p { margin-bottom: 18px; color: var(--muted); font-size: 0.97rem; }
-    .about-text p:last-child { margin-bottom: 0; }
-    .about-text strong { color: var(--text); }
-
-    /* ============================================================
-       RESEARCH INTERESTS
-    ============================================================ */
-    #research {
-      background: var(--bg-deep);
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Large diagonal red block in Research section */
-    #research::before {
-      content: '';
-      position: absolute;
-      bottom: -40px; left: -60px;
-      width: 500px; height: 300px;
-      background: linear-gradient(45deg, var(--crimson-2), transparent);
-      clip-path: polygon(0% 60%, 55% 0%, 100% 40%, 100% 100%, 0% 100%);
-      opacity: 0.06;
-      pointer-events: none;
-    }
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--bg-panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 24px;
-      position: relative;
-      overflow: hidden;
-      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
-    }
-
-    /* Top-left red angular slash on card */
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 48px; height: 48px;
-      background: var(--crimson);
-      clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
-      opacity: 0.7;
-      transition: opacity var(--transition);
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: var(--border-red);
-      box-shadow: 0 12px 40px rgba(255,26,26,0.08), 0 4px 16px rgba(0,0,0,0.5);
-    }
-    .card:hover::before { opacity: 1; }
-
-    .card-num {
-      font-family: var(--font-display);
-      font-size: 2.8rem;
-      color: rgba(255,255,255,0.04);
-      line-height: 1;
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
-      user-select: none;
-    }
-
-    .card-title {
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      letter-spacing: 0.04em;
-      color: var(--text);
-      margin-bottom: 12px;
-    }
-
-    .card-desc {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    /* ============================================================
-       EXPERIENCE & EDUCATION
-    ============================================================ */
-    #experience { background: var(--bg-base); }
-    #education  { background: var(--bg-deep); }
-
-    .timeline {
-      position: relative;
-      padding-left: 28px;
-    }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 8px; bottom: 8px;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--crimson), rgba(255,26,26,0.1));
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 44px;
-      padding-left: 24px;
-    }
-    .timeline-item:last-child { margin-bottom: 0; }
-
-    /* Diamond bullet */
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -34px; top: 8px;
-      width: 10px; height: 10px;
-      background: var(--crimson);
-      transform: rotate(45deg);
-      border: 2px solid var(--bg-base);
-    }
-
-    .timeline-meta {
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--crimson);
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .timeline-title {
-      font-family: var(--font-display);
-      font-size: 1.25rem;
-      letter-spacing: 0.03em;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    .timeline-org {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--muted);
-      margin-bottom: 10px;
-    }
-
-    .timeline-desc {
-      font-size: 0.88rem;
-      color: var(--subtle);
-      line-height: 1.6;
-    }
-
-    /* ============================================================
-       PUBLICATIONS
-    ============================================================ */
-    #publications {
-      background: var(--bg-base);
-      position: relative;
-      overflow: hidden;
-    }
-
-    #publications::after {
-      content: '';
-      position: absolute;
-      top: -30px; right: -40px;
-      width: 300px; height: 300px;
-      background: var(--crimson-2);
-      clip-path: polygon(100% 0%, 100% 100%, 20% 100%, 80% 0%);
-      opacity: 0.05;
-      pointer-events: none;
-    }
-
-    .pub-list { display: flex; flex-direction: column; gap: 20px; }
-
-    .pub-item {
-      background: var(--bg-panel-alt);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      position: relative;
-      transition: border-color var(--transition);
-      border-left: 3px solid transparent;
-    }
-    .pub-item:hover { border-left-color: var(--crimson); }
-
-    .pub-year {
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--crimson);
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .pub-title {
-      font-weight: 600;
-      font-size: 0.97rem;
-      color: var(--text);
-      margin-bottom: 6px;
-      line-height: 1.5;
-    }
-
-    .pub-authors {
-      font-size: 0.83rem;
-      color: var(--subtle);
-      margin-bottom: 8px;
-    }
-
-    .pub-venue {
-      font-size: 0.82rem;
-      color: var(--muted);
-      font-style: italic;
-    }
-
-    .pub-links {
-      margin-top: 12px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .pub-link {
-      font-size: 0.73rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--crimson-hi);
-      border: 1px solid rgba(255,59,59,0.3);
-      padding: 3px 10px;
-      border-radius: 2px;
-      transition: all var(--transition);
-    }
-    .pub-link:hover {
-      background: rgba(255,59,59,0.1);
-      border-color: var(--crimson-hi);
-    }
-
-    /* ============================================================
-       CONTACT
-    ============================================================ */
-    #contact {
-      background: var(--bg-deep);
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Large red angular block */
-    #contact::before {
-      content: '';
-      position: absolute;
-      bottom: 0; right: 0;
-      width: 600px; height: 400px;
-      background: linear-gradient(135deg, var(--crimson-2), transparent 60%);
-      clip-path: polygon(30% 100%, 100% 0%, 100% 100%);
-      opacity: 0.07;
-      pointer-events: none;
-    }
-
-    .contact-inner {
-      position: relative;
-      z-index: 2;
-      max-width: 600px;
-    }
-
-    .contact-inner p {
-      font-size: 1rem;
-      color: var(--muted);
-      margin-bottom: 32px;
-      line-height: 1.8;
-    }
-
-    .contact-email-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-family: var(--font-display);
-      font-size: 1.6rem;
-      letter-spacing: 0.05em;
-      color: var(--text);
-      border-bottom: 2px solid var(--crimson);
-      padding-bottom: 4px;
-      transition: color var(--transition);
-    }
-    .contact-email-link:hover { color: var(--crimson); }
-
-    /* ============================================================
-       FOOTER
-    ============================================================ */
-    footer {
-      background: #030303;
-      border-top: 1px solid var(--border);
-      padding: 24px 0;
-      text-align: center;
-    }
-    footer p {
-      font-size: 0.78rem;
-      color: var(--subtle);
-      letter-spacing: 0.06em;
-    }
-    footer span { color: var(--crimson); }
-
-    /* ============================================================
-       SCROLL REVEAL ANIMATION
-    ============================================================ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.45s ease, transform 0.45s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-delay-1 { transition-delay: 0.08s; }
-    .reveal-delay-2 { transition-delay: 0.16s; }
-    .reveal-delay-3 { transition-delay: 0.24s; }
-    .reveal-delay-4 { transition-delay: 0.32s; }
-    .reveal-delay-5 { transition-delay: 0.40s; }
-
-    /* ============================================================
-       RESPONSIVE
-    ============================================================ */
-    @media (max-width: 860px) {
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-      .profile-wrap { margin: 0 auto 20px; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-    }
-
-    @media (max-width: 600px) {
-      section { padding: 64px 0; }
-      .hero-name { line-height: 0.88; }
-      .cards-grid { grid-template-columns: 1fr; }
-      .social-links { gap: 8px; }
-      .social-btn { padding: 8px 12px; font-size: 0.72rem; }
-    }
-
-    /* ============================================================
-       ACTIVE NAV HIGHLIGHT
-    ============================================================ */
-    .nav-links a.active { color: var(--crimson); }
-
+    :root{--void:#010108;--deep:#06060f;--panel:#0a0a18;--elevated:#0f0f22;--surface:#14142e;--red:#e50025;--red-bright:#ff1744;--red-hot:#ff3d5a;--red-neon:#ff0040;--red-glow:rgba(229,0,37,.5);--red-mid:rgba(229,0,37,.25);--red-dim:rgba(229,0,37,.1);--red-faint:rgba(229,0,37,.04);--white:#f0f0f8;--grey:#8888a0;--grey-dim:#555570;--border:rgba(229,0,37,.08);--border-mid:rgba(229,0,37,.2);--border-bright:rgba(229,0,37,.4);--font-display:'Orbitron',sans-serif;--font-body:'Rajdhani',sans-serif;--font-mono:'Share Tech Mono',monospace;--nav-h:64px}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;font-size:16px}body{font-family:var(--font-body);background:var(--void);color:var(--white);line-height:1.7;overflow-x:hidden;font-weight:400;cursor:crosshair}a{color:inherit;text-decoration:none}img{max-width:100%;display:block}ul{list-style:none}::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--void)}::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px;box-shadow:0 0 6px var(--red-glow)}#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}.overlay-scanlines{position:fixed;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px);mix-blend-mode:multiply}.overlay-vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 50%,rgba(1,1,8,.6) 100%)}.container{max-width:1200px;margin:0 auto;padding:0 32px;position:relative;z-index:5}#nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1000;background:rgba(1,1,8,.8);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px;transition:all .3s ease}.nav-logo{font-family:var(--font-display);font-size:1.15rem;font-weight:800;letter-spacing:.12em;color:var(--red-bright);display:flex;align-items:center;gap:4px;text-shadow:0 0 20px var(--red-glow)}.nav-logo .dim{opacity:.4;color:var(--grey-dim)}.beacon{width:8px;height:8px;background:var(--red-bright);border-radius:50%;box-shadow:0 0 8px var(--red-glow),0 0 24px var(--red-dim);animation:beacon 2s ease-in-out infinite;margin-right:12px}@keyframes beacon{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}.nav-links{display:flex;gap:4px;align-items:center}.nav-links a{font-family:var(--font-display);font-size:.58rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);padding:7px 14px;border:1px solid transparent;transition:all .3s ease;position:relative}.nav-links a::before{content:'';position:absolute;bottom:0;left:50%;width:0;height:1px;background:var(--red);box-shadow:0 0 8px var(--red-glow);transition:all .3s ease;transform:translateX(-50%)}.nav-links a:hover,.nav-links a.active{color:var(--red-bright);text-shadow:0 0 12px var(--red-glow)}.nav-links a:hover::before,.nav-links a.active::before{width:100%}.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}.hamburger span{display:block;width:24px;height:2px;background:var(--red-bright);transition:all .3s ease;box-shadow:0 0 4px var(--red-dim)}.mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(1,1,8,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:999;flex-direction:column;padding:12px 0 20px}.mobile-menu.open{display:flex}.mobile-menu a{padding:14px 32px;font-family:var(--font-display);font-size:.68rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);border-left:2px solid transparent;transition:all .3s ease}.mobile-menu a:hover{color:var(--red-bright);border-left-color:var(--red);background:var(--red-faint)}section{padding:120px 0;position:relative;z-index:5}.section-tag{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);display:inline-flex;align-items:center;gap:12px;margin-bottom:14px;text-shadow:0 0 10px var(--red-dim)}.section-tag::before{content:'>';color:var(--grey-dim);animation:cursor-blink 1.2s step-end infinite}@keyframes cursor-blink{0%,100%{opacity:1}50%{opacity:0}}.section-heading{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:.08em;color:var(--white);margin-bottom:56px;position:relative;display:inline-block}.section-heading::after{content:'';position:absolute;left:0;bottom:-12px;width:50px;height:2px;background:var(--red);box-shadow:0 0 12px var(--red-glow),0 0 30px var(--red-dim)}.energy-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent 0%,var(--red-dim) 20%,var(--red) 50%,var(--red-dim) 80%,transparent 100%);box-shadow:0 0 12px var(--red-dim);position:relative;z-index:5;overflow:visible}.energy-divider::before{content:'';position:absolute;top:-3px;left:0;right:0;bottom:-3px;background:linear-gradient(90deg,transparent 0%,var(--red-faint) 20%,var(--red-dim) 50%,var(--red-faint) 80%,transparent 100%)}.energy-divider::after{content:'';position:absolute;top:-1px;width:80px;height:3px;background:linear-gradient(90deg,transparent,var(--red-bright),transparent);box-shadow:0 0 16px var(--red-glow);animation:energy-travel 4s linear infinite}@keyframes energy-travel{0%{left:-80px}100%{left:100%}}#hero{min-height:100vh;display:flex;align-items:center;padding-top:var(--nav-h);position:relative;z-index:5;overflow:hidden}.hero-beam{position:absolute;top:-30%;right:-15%;width:700px;height:1400px;background:linear-gradient(165deg,var(--red) 0%,transparent 40%);opacity:.04;transform:rotate(-12deg);pointer-events:none;animation:beam-breathe 6s ease-in-out infinite}.hero-beam-2{position:absolute;bottom:-20%;left:-10%;width:500px;height:1000px;background:linear-gradient(15deg,var(--red) 0%,transparent 35%);opacity:.03;transform:rotate(8deg);pointer-events:none;animation:beam-breathe 8s ease-in-out infinite reverse}@keyframes beam-breathe{0%,100%{opacity:.04}50%{opacity:.08}}.hud{position:absolute;pointer-events:none;z-index:3}.hud-brackets{top:18%;left:6%;width:60px;height:60px}.hud-brackets::before,.hud-brackets::after{content:'';position:absolute}.hud-brackets::before{top:0;left:0;width:16px;height:16px;border-top:1px solid rgba(229,0,37,.25);border-left:1px solid rgba(229,0,37,.25)}.hud-brackets::after{bottom:0;right:0;width:16px;height:16px;border-bottom:1px solid rgba(229,0,37,.25);border-right:1px solid rgba(229,0,37,.25)}.hud-reticle{top:35%;right:10%;width:30px;height:30px;border:1px solid rgba(229,0,37,.12);border-radius:50%;animation:reticle-spin 15s linear infinite}.hud-reticle::before{content:'';position:absolute;top:50%;left:-8px;right:-8px;height:1px;background:rgba(229,0,37,.08)}.hud-reticle::after{content:'';position:absolute;left:50%;top:-8px;bottom:-8px;width:1px;background:rgba(229,0,37,.08)}@keyframes reticle-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}.hud-data{bottom:18%;right:6%;font-family:var(--font-mono);font-size:.55rem;color:rgba(229,0,37,.2);letter-spacing:.15em;writing-mode:vertical-rl;animation:hud-flicker 5s ease-in-out infinite}@keyframes hud-flicker{0%,100%{opacity:1}48%{opacity:1}50%{opacity:.2}52%{opacity:1}80%{opacity:1}82%{opacity:.3}84%{opacity:1}}.hud-hex{bottom:30%;left:8%;width:50px;height:50px;opacity:.1;animation:reticle-spin 25s linear infinite reverse}.hero-content{position:relative;z-index:10;max-width:900px}.hero-name{font-family:var(--font-display);font-size:clamp(2.6rem,7.5vw,5.5rem);font-weight:900;line-height:.95;letter-spacing:.04em;color:var(--red-bright);margin-bottom:2px;text-shadow:0 0 40px var(--red-glow),0 0 80px var(--red-dim);position:relative;display:inline-block;cursor:default}.hero-name:hover{animation:glitch .4s ease-in-out}@keyframes glitch{0%{text-shadow:0 0 40px var(--red-glow),0 0 80px var(--red-dim);transform:translate(0)}20%{text-shadow:-3px 0 #ff0040,3px 0 #00f0ff;transform:translate(-2px,1px)}40%{text-shadow:3px 0 #ff0040,-3px 0 #00f0ff;transform:translate(2px,-1px)}60%{text-shadow:-2px 0 #ff0040,2px 0 #00f0ff;transform:translate(1px,2px)}80%{text-shadow:2px 0 #ff0040,-1px 0 #00f0ff;transform:translate(-1px,-1px)}100%{text-shadow:0 0 40px var(--red-glow),0 0 80px var(--red-dim);transform:translate(0)}}.hero-nickname{font-family:var(--font-display);font-size:clamp(.75rem,2vw,1rem);font-weight:500;letter-spacing:.5em;color:var(--grey);margin-bottom:24px}.hero-nickname .bk{color:var(--red);opacity:.5}.hero-status{font-family:var(--font-mono);font-size:.72rem;color:var(--red);letter-spacing:.22em;margin-bottom:32px;display:flex;align-items:center;gap:10px;text-shadow:0 0 10px var(--red-dim)}.status-dot{display:inline-block;width:6px;height:6px;background:var(--red-bright);border-radius:50%;box-shadow:0 0 6px var(--red-glow);animation:beacon 1.5s step-end infinite}.hero-quote{position:relative;padding:16px 0 16px 24px;max-width:520px;margin-bottom:44px;font-family:var(--font-body);font-size:.95rem;color:var(--white);font-style:italic;line-height:1.7}.hero-quote::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--red),transparent);box-shadow:0 0 10px var(--red-dim)}.hero-quote cite{display:block;margin-top:8px;font-style:normal;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red)}.link-bar{display:flex;gap:8px;flex-wrap:wrap}.link-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;font-family:var(--font-display);font-size:.6rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);background:rgba(229,0,37,.03);border:1px solid var(--border);clip-path:polygon(0% 0%,calc(100% - 8px) 0%,100% 8px,100% 100%,8px 100%,0% calc(100% - 8px));transition:all .3s ease;position:relative}.link-btn:hover{color:var(--white);border-color:var(--red);background:rgba(229,0,37,.08);box-shadow:0 0 20px var(--red-dim),inset 0 0 20px var(--red-faint);text-shadow:0 0 8px var(--red-glow)}#about{background:transparent}.about-grid{display:grid;grid-template-columns:260px 1fr;gap:64px;align-items:start}.profile-frame{position:relative;width:240px;height:240px;margin:0 auto}.profile-ring{position:absolute;inset:-16px;border:1px solid var(--border-mid);clip-path:polygon(30% 0%,70% 0%,100% 30%,100% 70%,70% 100%,30% 100%,0% 70%,0% 30%);animation:reticle-spin 20s linear infinite}.profile-ring-2{position:absolute;inset:-24px;border:1px solid rgba(229,0,37,.08);clip-path:polygon(30% 0%,70% 0%,100% 30%,100% 70%,70% 100%,30% 100%,0% 70%,0% 30%);animation:reticle-spin 30s linear infinite reverse}.profile-glow{position:absolute;inset:-30px;background:radial-gradient(circle,var(--red-dim) 0%,transparent 60%);animation:glow-pulse 3s ease-in-out infinite;z-index:-1}@keyframes glow-pulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.8;transform:scale(1.05)}}.profile-img{width:240px;height:240px;object-fit:cover;clip-path:polygon(15% 0%,85% 0%,100% 15%,100% 85%,85% 100%,15% 100%,0% 85%,0% 15%);background:var(--panel)}.profile-corner{position:absolute;width:12px;height:12px}.profile-corner.tl{top:-4px;left:-4px;border-top:2px solid var(--red);border-left:2px solid var(--red)}.profile-corner.tr{top:-4px;right:-4px;border-top:2px solid var(--red);border-right:2px solid var(--red)}.profile-corner.bl{bottom:-4px;left:-4px;border-bottom:2px solid var(--red);border-left:2px solid var(--red)}.profile-corner.br{bottom:-4px;right:-4px;border-bottom:2px solid var(--red);border-right:2px solid var(--red)}.about-text p{font-size:1rem;color:var(--grey);margin-bottom:20px;line-height:1.85}.about-text a{color:var(--red-bright);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--border-mid);transition:text-decoration-color .3s}.about-text a:hover{text-decoration-color:var(--red-bright)}#research{background:transparent}.research-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}.research-card{background:var(--panel);border:1px solid var(--border);padding:32px 28px;position:relative;overflow:hidden;transition:all .4s ease;clip-path:polygon(0% 0%,calc(100% - 20px) 0%,100% 20px,100% 100%,20px 100%,0% calc(100% - 20px))}.research-card::before{content:'';position:absolute;top:-1px;right:-1px;width:30px;height:30px;background:linear-gradient(225deg,var(--red) 50%,transparent 50%);opacity:.4;transition:opacity .4s ease}.research-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--red);box-shadow:0 0 10px var(--red-glow);transition:width .6s ease}.research-card:hover{border-color:var(--border-bright);background:var(--elevated);transform:translateY(-3px);box-shadow:0 12px 40px rgba(229,0,37,.06)}.research-card:hover::before{opacity:1}.research-card:hover::after{width:100%}.card-index{font-family:var(--font-display);font-size:.55rem;font-weight:700;letter-spacing:.25em;color:var(--red);opacity:.4;margin-bottom:16px}.card-title{font-family:var(--font-display);font-size:.95rem;font-weight:700;letter-spacing:.06em;color:var(--white);margin-bottom:14px;line-height:1.4}.card-desc{font-size:.92rem;color:var(--grey);line-height:1.7}#experience,#education{background:transparent}.timeline{position:relative;padding-left:36px}.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--red),var(--red-dim) 60%,transparent);box-shadow:0 0 6px var(--red-dim)}.tl-item{position:relative;margin-bottom:48px;padding-left:28px}.tl-item:last-child{margin-bottom:0}.tl-item::before{content:'';position:absolute;left:-41px;top:6px;width:10px;height:10px;background:var(--red);transform:rotate(45deg);box-shadow:0 0 12px var(--red-glow),0 0 24px var(--red-dim)}.tl-item::after{content:'';position:absolute;left:-31px;top:10px;width:28px;height:1px;background:linear-gradient(90deg,var(--red-dim),transparent)}.tl-date{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:6px;text-shadow:0 0 8px var(--red-dim)}.tl-title{font-family:var(--font-display);font-size:.92rem;font-weight:700;letter-spacing:.05em;color:var(--white);margin-bottom:4px}.tl-org{font-size:.92rem;font-weight:500;color:var(--grey);margin-bottom:10px}.tl-desc{font-size:.9rem;color:var(--grey-dim);line-height:1.7}.tl-desc a{color:var(--red-bright);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--border-mid)}#publications{background:transparent}.pub-list{display:flex;flex-direction:column;gap:16px}.pub-item{background:var(--panel);border:1px solid var(--border);padding:28px 28px 28px 32px;position:relative;transition:all .3s ease;border-left:2px solid transparent}.pub-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:transparent;box-shadow:none;transition:all .3s ease}.pub-item:hover{border-left-color:var(--red);background:var(--elevated)}.pub-item:hover::before{background:var(--red);box-shadow:0 0 16px var(--red-glow),-4px 0 20px var(--red-dim)}.pub-year{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:10px;text-shadow:0 0 6px var(--red-dim)}.pub-title{font-weight:700;font-size:1.02rem;color:var(--white);margin-bottom:8px;line-height:1.5}.pub-authors{font-size:.85rem;color:var(--grey-dim);margin-bottom:6px}.pub-venue{font-size:.85rem;color:var(--grey);font-style:italic}.pub-links{margin-top:14px;display:flex;gap:8px}.pub-link{font-family:var(--font-display);font-size:.58rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--red-bright);border:1px solid var(--border-bright);padding:4px 14px;transition:all .3s ease;clip-path:polygon(0% 0%,calc(100% - 6px) 0%,100% 6px,100% 100%,6px 100%,0% calc(100% - 6px))}.pub-link:hover{background:var(--red-dim);box-shadow:0 0 12px var(--red-dim)}#contact{background:transparent;position:relative;overflow:hidden}.contact-inner{position:relative;z-index:5;max-width:620px}.contact-inner p{font-size:1.05rem;color:var(--grey);line-height:1.85;margin-bottom:32px}footer{background:transparent;border-top:1px solid var(--border);padding:28px 0;text-align:center;position:relative;z-index:5}footer p{font-family:var(--font-mono);font-size:.68rem;color:var(--grey-dim);letter-spacing:.1em}footer span{color:var(--red)}.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}.reveal.visible{opacity:1;transform:translateY(0)}.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}.hero-anim{opacity:0;transform:translateY(30px);animation:hero-in .9s cubic-bezier(.16,1,.3,1) forwards}.ha-d1{animation-delay:.15s}.ha-d2{animation-delay:.3s}.ha-d3{animation-delay:.45s}.ha-d4{animation-delay:.6s}.ha-d5{animation-delay:.75s}@keyframes hero-in{to{opacity:1;transform:translateY(0)}}@media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:40px}.profile-frame{margin:0 auto}.nav-links{display:none}.hamburger{display:flex}}@media(max-width:600px){section{padding:80px 0}.container{padding:0 20px}.research-grid{grid-template-columns:1fr}.link-bar{gap:6px}.link-btn{padding:8px 12px;font-size:.55rem}}
   </style>
 </head>
 
 <body>
 
-  <!-- ============================================================
-       NAVIGATION
-  ============================================================ -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div class="overlay-scanlines" aria-hidden="true"></div>
+  <div class="overlay-vignette" aria-hidden="true"></div>
+
   <nav id="nav" role="navigation" aria-label="Main navigation">
-    <!-- Monogram logo -->
     <a href="#hero" class="nav-logo" aria-label="Agnideep Aich — Home">
-      <span>A</span><sup>2</sup>
+      <span class="beacon"></span>
+      <span class="dim">&lt;</span>A&sup2;<span class="dim">/&gt;</span>
     </a>
-
-    <!-- Desktop links -->
     <ul class="nav-links" id="nav-links">
-      <li><a href="#about"        class="nav-link">About</a></li>
-      <li><a href="#research"     class="nav-link">Research</a></li>
-      <li><a href="#experience"   class="nav-link">Experience</a></li>
-      <li><a href="#education"    class="nav-link">Education</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#research" class="nav-link">Research</a></li>
+      <li><a href="#experience" class="nav-link">Experience</a></li>
+      <li><a href="#education" class="nav-link">Education</a></li>
       <li><a href="#publications" class="nav-link">Publications</a></li>
-      <li><a href="#contact"      class="nav-link">Contact</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
     </ul>
-
-    <!-- Mobile hamburger -->
     <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </button>
   </nav>
 
-  <!-- Mobile menu -->
   <div class="mobile-menu" id="mobile-menu" role="menu">
-    <a href="#about"        role="menuitem">About</a>
-    <a href="#research"     role="menuitem">Research</a>
-    <a href="#experience"   role="menuitem">Experience</a>
-    <a href="#education"    role="menuitem">Education</a>
+    <a href="#about" role="menuitem">About</a>
+    <a href="#research" role="menuitem">Research</a>
+    <a href="#experience" role="menuitem">Experience</a>
+    <a href="#education" role="menuitem">Education</a>
     <a href="#publications" role="menuitem">Publications</a>
-    <a href="#contact"      role="menuitem">Contact</a>
+    <a href="#contact" role="menuitem">Contact</a>
   </div>
 
-
-  <!-- ============================================================
-       HERO
-  ============================================================ -->
   <section id="hero" aria-label="Introduction">
-    <!-- Paint splatter dots -->
-    <div class="hero-splatter" aria-hidden="true"></div>
+    <div class="hero-beam" aria-hidden="true"></div>
+    <div class="hero-beam-2" aria-hidden="true"></div>
+    <div class="hud hud-brackets" aria-hidden="true"></div>
+    <div class="hud hud-reticle" aria-hidden="true"></div>
+    <div class="hud hud-data" aria-hidden="true">SYS.ACTIVE//2026</div>
+    <div class="hud hud-hex" aria-hidden="true">
+      <svg viewBox="0 0 50 50" fill="none" stroke="rgba(229,0,37,0.15)" stroke-width="0.5">
+        <polygon points="25,2 47,14 47,36 25,48 3,36 3,14"/>
+        <polygon points="25,10 39,18 39,32 25,42 11,32 11,18"/>
+      </svg>
+    </div>
 
     <div class="container">
-      <div class="hero-inner">
-
-        <h1 class="hero-name">AGNIDEEP “AGNI” AICH</h1>
-        
-        <p class="hero-pretitle">PhD Candidate · Statistical Machine Learning</p>
-
-     
-        <!-- Charlie Chaplin quote — kept verbatim -->
-        <blockquote class="hero-quote">
+      <div class="hero-content">
+        <h1 class="hero-name hero-anim">AGNIDEEP ❝AGNI❞‬ AICH</h1>
+        <div class="hero-status hero-anim ha-d2">
+          <span class="status-dot"></span> PhD Candidate · Statistical Machine Learning
+        </div>
+        <blockquote class="hero-quote hero-anim ha-d3">
           "To truly laugh, you must be able to take your pain, and play with it."
           <cite>— Charlie Chaplin</cite>
         </blockquote>
-
-        <!-- Social links — update hrefs to match your own -->
-        <div class="social-links" role="list">
-
-          <!-- Email -->
-          <a href="mailto:agnideep.aich1@louisiana.edu"
-             class="social-btn" role="listitem" aria-label="Email">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        <div class="link-bar hero-anim ha-d4" role="list">
+          <a href="mailto:agnideep.aich1@louisiana.edu" class="link-btn" role="listitem" aria-label="Email">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
             <span>Email</span>
           </a>
-
-          <!-- LinkedIn -->
-          <a href="https://linkedin.com/in/agnideep-aich"
-             class="social-btn" role="listitem" aria-label="LinkedIn" target="_blank" rel="noopener">
-            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <a href="https://linkedin.com/in/agnideep-aich" class="link-btn" role="listitem" aria-label="LinkedIn" target="_blank" rel="noopener">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
             <span>LinkedIn</span>
           </a>
-
-          <!-- Google Scholar -->
-          <a href="https://scholar.google.com/citations?user=U2uZyIwAAAAJ"
-             class="social-btn" role="listitem" aria-label="Google Scholar" target="_blank" rel="noopener">
-            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L1 9l4 2.18V17c0 2.21 4.03 4 9 4s9-1.79 9-4v-5.82L20 9.18V15h2V9L12 3zm6.93 6L12 12.72 5.07 9 12 5.28 18.93 9z"/></svg>
+          <a href="https://scholar.google.com/citations?user=U2uZyIwAAAAJ" class="link-btn" role="listitem" aria-label="Google Scholar" target="_blank" rel="noopener">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18V17c0 2.21 4.03 4 9 4s9-1.79 9-4v-5.82L20 9.18V15h2V9L12 3zm6.93 6L12 12.72 5.07 9 12 5.28 18.93 9z"/></svg>
             <span>Scholar</span>
           </a>
-
-          <!-- CV -->
-          <a href="https://drive.google.com/file/d/1VMQ15esvktlJr1EANTH5mXrRGvUOe6-K/view?usp=drive_link"
-             class="social-btn" role="listitem" aria-label="Curriculum Vitae" target="_blank" rel="noopener">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <a href="https://drive.google.com/file/d/1VMQ15esvktlJr1EANTH5mXrRGvUOe6-K/view?usp=drive_link" class="link-btn" role="listitem" aria-label="Curriculum Vitae" target="_blank" rel="noopener">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
             <span>CV</span>
           </a>
-
-          <!-- GitHub -->
-          <a href="https://github.com/agnivibes"
-             class="social-btn" role="listitem" aria-label="GitHub" target="_blank" rel="noopener">
-            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          <a href="https://github.com/agnivibes" class="link-btn" role="listitem" aria-label="GitHub" target="_blank" rel="noopener">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
             <span>GitHub</span>
           </a>
-
-          <!-- Instagram -->
-          <a href="https://instagram.com/agni_vibes"
-             class="social-btn" role="listitem" aria-label="Instagram" target="_blank" rel="noopener">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          <a href="https://instagram.com/agni_vibes" class="link-btn" role="listitem" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             <span>Instagram</span>
           </a>
-
-        </div><!-- /.social-links -->
-      </div><!-- /.hero-inner -->
-    </div><!-- /.container -->
+        </div>
+      </div>
+    </div>
   </section>
 
+  <div class="energy-divider" aria-hidden="true"></div>
 
-  <!-- ============================================================
-       ABOUT
-  ============================================================ -->
   <section id="about" aria-labelledby="about-heading">
     <div class="container">
-      <span class="tag">About</span>
-      <h2 class="section-label" id="about-heading">My Story</h2>
-
+      <div class="section-tag">About</div>
+      <h2 class="section-heading" id="about-heading">My Story</h2>
       <div class="about-grid">
-
-        <!-- Profile photo -->
         <div class="reveal">
-          <div class="profile-wrap">
-            <!--
-              Replace the placeholder below with:
-              <img src="profile.jpg" alt="Agnideep Aich" class="profile-img" />
-              if you have a profile.jpg in the same directory.
-            -->
+          <div class="profile-frame">
+            <div class="profile-ring" aria-hidden="true"></div>
+            <div class="profile-ring-2" aria-hidden="true"></div>
+            <div class="profile-glow" aria-hidden="true"></div>
+            <div class="profile-corner tl" aria-hidden="true"></div>
+            <div class="profile-corner tr" aria-hidden="true"></div>
+            <div class="profile-corner bl" aria-hidden="true"></div>
+            <div class="profile-corner br" aria-hidden="true"></div>
             <img src="profile.jpg" alt="Agnideep Aich" class="profile-img" />
           </div>
         </div>
-
-        <!-- Bio text -->
-        <div class="about-text reveal reveal-delay-1">
-
-          <p>
-  I am a PhD candidate in Statistical Machine Learning at the University of Louisiana at Lafayette, working under
-  <a href="https://math.louisiana.edu/node/298" target="_blank" rel="noopener" style="color: var(--crimson); text-decoration: underline;">
-    Dr. Bruce Wade
-  </a>.
-  I combine statistics and machine learning, with a focus on dependence modeling using copulas, to support risk prediction and analysis in
-  population health and biomedical datasets, including large-scale public health surveys and clinical datasets.
-</p>
-
-<p>
- <p>
-  Outside the lab, I live loudly. I collect sunglasses and colognes, spend too much time thinking about cars, and I am an Arsenal fan
-  (even though lately, let’s not talk about them). I’m also into EDM (trance, future bass, and synthwave), and I’m a huge MMA fan.
-  Also, I love eating, and if I see a Raising Cane’s, my heart starts beating a little faster.
-</p>
-
-</p>
-
-
+        <div class="about-text reveal reveal-d1">
+          <p>I am a PhD candidate in Statistical Machine Learning at the University of Louisiana at Lafayette, working under <a href="https://math.louisiana.edu/node/298" target="_blank" rel="noopener">Dr. Bruce Wade</a>. I combine statistics and machine learning, with a focus on dependence modeling using copulas, to support risk prediction and analysis in population health and biomedical datasets, including large-scale public health surveys and clinical datasets.</p>
+          <p>Outside the lab, I live loudly. I collect sunglasses and colognes, spend too much time thinking about cars, and I am an Arsenal fan (even though lately, let's not talk about them). I'm also into EDM (trance, future bass, and synthwave), and I'm a huge MMA fan. Also, I love eating, and if I see a Raising Cane's, my heart starts beating a little faster.</p>
         </div>
-      </div><!-- /.about-grid -->
+      </div>
     </div>
   </section>
 
+  <div class="energy-divider" aria-hidden="true"></div>
 
-  <!-- ============================================================
-       RESEARCH INTERESTS
-  ============================================================ -->
   <section id="research" aria-labelledby="research-heading">
     <div class="container">
-      <span class="tag">Focus Areas</span>
-      <h2 class="section-label" id="research-heading">Research Interests</h2>
-
-      <div class="cards-grid">
-
-        <!-- 1: Statistical Machine Learning -->
-        <div class="card reveal">
-          <div class="card-num" aria-hidden="true">01</div>
+      <div class="section-tag">Focus Areas</div>
+      <h2 class="section-heading" id="research-heading">Research Interests</h2>
+      <div class="research-grid">
+        <div class="research-card reveal">
+          <div class="card-index">01</div>
           <h3 class="card-title">Statistical Machine Learning</h3>
-          <p class="card-desc">
- I combine ideas from statistics and machine learning to develop principled methods for complex data. My primary interest lies in applied methodological work, where theory informs practical modeling decisions. At the same time, I engage with foundational questions in statistical learning, including theoretical development when needed to better understand model behavior and reliability.
-</p>
-
+          <p class="card-desc">I combine ideas from statistics and machine learning to develop principled methods for complex data. My primary interest lies in applied methodological work, where theory informs practical modeling decisions. At the same time, I engage with foundational questions in statistical learning, including theoretical development when needed to better understand model behavior and reliability.</p>
         </div>
-
-        <!-- 2: Copulas -->
-        <div class="card reveal reveal-delay-1">
-          <div class="card-num" aria-hidden="true">02</div>
+        <div class="research-card reveal reveal-d1">
+          <div class="card-index">02</div>
           <h3 class="card-title">Copulas</h3>
-          <p class="card-desc">
-  I use copulas to model non-Gaussian dependence structures, with particular emphasis on tail behavior and joint extremes. This perspective is especially useful in high-risk settings, where rare but consequential events can dominate outcomes. Many biomedical and population health datasets exhibit dependence patterns that are not well captured by average association alone. My work leverages copula-based methods to model these tail-driven relationships and to develop dependence-aware learning tools for complex health data.
-</p>
-
+          <p class="card-desc">I use copulas to model non-Gaussian dependence structures, with particular emphasis on tail behavior and joint extremes. This perspective is especially useful in high-risk settings, where rare but consequential events can dominate outcomes. Many biomedical and population health datasets exhibit dependence patterns that are not well captured by average association alone. My work leverages copula-based methods to model these tail-driven relationships and to develop dependence-aware learning tools for complex health data.</p>
         </div>
-
-        <!-- 3: Risk Prediction -->
-        <div class="card reveal reveal-delay-2">
-          <div class="card-num" aria-hidden="true">03</div>
+        <div class="research-card reveal reveal-d2">
+          <div class="card-index">03</div>
           <h3 class="card-title">Predictive Modeling</h3>
-          <p class="card-desc">
-  Predictive modeling is a central component of my research, particularly in biomedical and population health settings. I design models that account for feature dependence, heterogeneity, and real-world data complexity, with the goal of producing reliable and interpretable predictions in large-scale clinical and public health datasets.
-</p>
-
+          <p class="card-desc">Predictive modeling is a central component of my research, particularly in biomedical and population health settings. I design models that account for feature dependence, heterogeneity, and real-world data complexity, with the goal of producing reliable and interpretable predictions in large-scale clinical and public health datasets.</p>
         </div>
-
-        <!-- 4: Population Health -->
-        <div class="card reveal reveal-delay-3">
-          <div class="card-num" aria-hidden="true">04</div>
+        <div class="research-card reveal reveal-d3">
+          <div class="card-index">04</div>
           <h3 class="card-title">Population Health</h3>
-          <p class="card-desc">
-  I work with population health datasets that include cross-sectional surveys and irregular longitudinal measurements.
-  These settings often involve dependence, missingness, and heterogeneity, and my methods are designed with those realities in mind.
-</p>
-
+          <p class="card-desc">I work with population health datasets that include cross-sectional surveys and irregular longitudinal measurements. These settings often involve dependence, missingness, and heterogeneity, and my methods are designed with those realities in mind.</p>
         </div>
-
-        <!-- 5: AI in Healthcare -->
-        <div class="card reveal reveal-delay-4">
-          <div class="card-num" aria-hidden="true">05</div>
+        <div class="research-card reveal reveal-d4">
+          <div class="card-index">05</div>
           <h3 class="card-title">AI in Healthcare</h3>
-          <p class="card-desc">
-  I am interested in turning AI methods into tools that are reliable for healthcare settings.
-  My focus is on developing models that respect dependence structure in the data and produce predictions that remain stable across diverse patient populations and real-world conditions.
-</p>
-
+          <p class="card-desc">I am interested in turning AI methods into tools that are reliable for healthcare settings. My focus is on developing models that respect dependence structure in the data and produce predictions that remain stable across diverse patient populations and real-world conditions.</p>
         </div>
-
-      </div><!-- /.cards-grid -->
+      </div>
     </div>
   </section>
 
+  <div class="energy-divider" aria-hidden="true"></div>
 
-  <!-- ============================================================
-     WORK EXPERIENCE
-============================================================ -->
-<section id="experience" aria-labelledby="experience-heading">
-  <div class="container">
-    <span class="tag">Experience</span>
-    <h2 class="section-label" id="experience-heading">Work Experience</h2>
-
-    <div class="timeline">
-
-      <!-- Item 1 -->
-      <div class="timeline-item reveal">
-        <p class="timeline-meta">August 2025 – December 2025</p>
-        <h3 class="timeline-title">Statistical and Data Science Research Assistant</h3>
-        <p class="timeline-org">University of Louisiana at Lafayette</p>
-        <p class="timeline-desc">
-          I analyzed public health datasets using statistical modeling, machine learning, and data visualization under
-          <a href="https://foundations.louisiana.edu/node/165" target="_blank" rel="noopener" style="color: #ff1a1a; text-decoration: underline;">
-            Dr. Amanda Mayeaux
-          </a>.
-          I also collaborated across public health, education, and kinesiology to frame research questions and design analyses,
-          contributing to manuscripts in preparation.
-        </p>
-      </div>
-
-      <!-- Item 2 -->
-      <div class="timeline-item reveal reveal-delay-1">
-        <p class="timeline-meta">August 2024 – May 2025</p>
-        <h3 class="timeline-title">Research Assistant</h3>
-        <p class="timeline-org">Statistical Consulting Center, University of Louisiana at Lafayette</p>
-        <p class="timeline-desc">
-          Provided statistical consulting, data analysis, and data visualization support to PhD students, faculty, and other clients.
-          Collaborated closely with researchers to translate study objectives into statistical questions and deliver robust, actionable solutions.
-        </p>
-      </div>
-
-      <!-- Item 3 -->
-      <div class="timeline-item reveal reveal-delay-2">
-        <p class="timeline-meta">August 2020 – May 2024</p>
-        <h3 class="timeline-title">Instructor of Record</h3>
-        <p class="timeline-org">University of Louisiana at Lafayette</p>
-        <p class="timeline-desc">
-          Taught two sections each semester of Elementary Statistics (STAT 214) and Applied College Algebra (MATH 105).
-          Developed course materials including lectures, assignments, and exams, and received strong student feedback for clear communication and engagement.
-        </p>
-      </div>
-
-    </div><!-- /.timeline -->
-  </div>
-</section>
-
-
- <!-- ============================================================
-     EDUCATION
-============================================================ -->
-<section id="education" aria-labelledby="education-heading">
-  <div class="container">
-    <span class="tag">Education</span>
-    <h2 class="section-label" id="education-heading">Education</h2>
-
-    <div class="timeline">
-
-      <!-- PhD -->
-      <div class="timeline-item reveal">
-        <p class="timeline-meta">2021 – May 2026 (Anticipated)</p>
-        <h3 class="timeline-title">Ph.D. in Statistical Machine Learning</h3>
-        <p class="timeline-org">University of Louisiana at Lafayette</p>
-        <p class="timeline-desc">
-          Dissertation: Learning from Extremes: A Copula-Based Feature Selection Framework for Machine Learning-Driven Risk Prediction.
-        </p>
-      </div>
-
-      <!-- MS Math -->
-      <div class="timeline-item reveal reveal-delay-1">
-        <p class="timeline-meta">2019 – 2021</p>
-        <h3 class="timeline-title">M.S. in Mathematics</h3>
-        <p class="timeline-org">University of Louisiana at Lafayette</p>
-        <p class="timeline-desc"></p>
-      </div>
-
-      <!-- MS Statistics -->
-      <div class="timeline-item reveal reveal-delay-2">
-        <p class="timeline-meta">2016 – 2018</p>
-        <h3 class="timeline-title">M.S. in Statistics</h3>
-        <p class="timeline-org">University of Calcutta, India</p>
-        <p class="timeline-desc"></p>
-      </div>
-
-      <!-- BS Statistics -->
-      <div class="timeline-item reveal reveal-delay-3">
-        <p class="timeline-meta">2013 – 2016</p>
-        <h3 class="timeline-title">B.S. in Statistics</h3>
-        <p class="timeline-org">Asutosh College, India</p>
-        <p class="timeline-desc">
-          Minors: Mathematics &amp; Computer Science.
-        </p>
-      </div>
-
-    </div><!-- /.timeline -->
-  </div>
-</section>
-
-
-
- <!-- ============================================================
-     PUBLICATIONS
-============================================================ -->
-<section id="publications" aria-labelledby="publications-heading">
-  <div class="container">
-    <span class="tag">Recent Work</span>
-    <h2 class="section-label" id="publications-heading">Recent Publications</h2>
-
-    <div class="pub-list">
-
-       <!-- 1 -->
-      <article class="pub-item reveal reveal-delay-1">
-        <p class="pub-year">2026</p>
-        <h3 class="pub-title">
-          A Copula Based Supervised Filter for Feature Selection in Machine Learning Driven Diabetes Risk Prediction
-        </h3>
-        <p class="pub-authors">Agnideep Aich, Md. Monzur Murshed, Sameera Hewage, Amanda Mayeaux</p>
-        <p class="pub-venue">Published in Scientific Reports</p>
-        <div class="pub-links">
-          <a href="https://doi.org/10.1038/s41598-026-41874-9" class="pub-link" target="_blank" rel="noopener">DOI</a>
+  <section id="experience" aria-labelledby="experience-heading">
+    <div class="container">
+      <div class="section-tag">Experience</div>
+      <h2 class="section-heading" id="experience-heading">Work Experience</h2>
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <p class="tl-date">August 2025 – December 2025</p>
+          <h3 class="tl-title">Statistical and Data Science Research Assistant</h3>
+          <p class="tl-org">University of Louisiana at Lafayette</p>
+          <p class="tl-desc">I analyzed public health datasets using statistical modeling, machine learning, and data visualization under <a href="https://foundations.louisiana.edu/node/165" target="_blank" rel="noopener">Dr. Amanda Mayeaux</a>. I also collaborated across public health, education, and kinesiology to frame research questions and design analyses, contributing to manuscripts in preparation.</p>
         </div>
-      </article>
-
-
-       <!-- 2 -->
-      <article class="pub-item reveal reveal-delay-2">
-        <p class="pub-year">2026</p>
-        <h3 class="pub-title">
-          The Minimax Lower Bound of Kernel Stein Discrepancy Estimation
-        </h3>
-        <p class="pub-authors">J. Cribeiro-Ramallo, Agnideep Aich, F. Kalinke, Ashit Baran Aich, Zoltán Szabó</p>
-        <p class="pub-venue">Accepted at AISTATS 2026</p>
-        <div class="pub-links">
-          <a href="https://doi.org/10.48550/arXiv.2510.15058" class="pub-link" target="_blank" rel="noopener">DOI</a>
+        <div class="tl-item reveal reveal-d1">
+          <p class="tl-date">August 2024 – May 2025</p>
+          <h3 class="tl-title">Research Assistant</h3>
+          <p class="tl-org">Statistical Consulting Center, University of Louisiana at Lafayette</p>
+          <p class="tl-desc">Provided statistical consulting, data analysis, and data visualization support to PhD students, faculty, and other clients. Collaborated closely with researchers to translate study objectives into statistical questions and deliver robust, actionable solutions.</p>
         </div>
-      </article>
-      
-      <!-- 3 -->
-      <article class="pub-item reveal">
-        <p class="pub-year">2026</p>
-        <h3 class="pub-title">
-          Bayesian Inference for Joint Tail Risk in Paired Biomarkers via Archimedean Copulas with Restricted Jeffreys Priors
-        </h3>
-        <p class="pub-authors">Agnideep Aich, Md. Monzur Murshed, Sameera Hewage, Ashit Baran Aich</p>
-        <p class="pub-venue">Preprint</p>
-        <div class="pub-links">
-          <a href="https://doi.org/10.48550/arXiv.2602.15319" class="pub-link" target="_blank" rel="noopener">DOI</a>
+        <div class="tl-item reveal reveal-d2">
+          <p class="tl-date">August 2020 – May 2024</p>
+          <h3 class="tl-title">Instructor of Record</h3>
+          <p class="tl-org">University of Louisiana at Lafayette</p>
+          <p class="tl-desc">Taught two sections each semester of Elementary Statistics (STAT 214) and Applied College Algebra (MATH 105). Developed course materials including lectures, assignments, and exams, and received strong student feedback for clear communication and engagement.</p>
         </div>
-      </article>
+      </div>
+    </div>
+  </section>
 
-    
+  <div class="energy-divider" aria-hidden="true"></div>
 
-     
+  <section id="education" aria-labelledby="education-heading">
+    <div class="container">
+      <div class="section-tag">Education</div>
+      <h2 class="section-heading" id="education-heading">Education</h2>
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <p class="tl-date">2021 – May 2026 (Anticipated)</p>
+          <h3 class="tl-title">Ph.D. in Statistical Machine Learning</h3>
+          <p class="tl-org">University of Louisiana at Lafayette</p>
+          <p class="tl-desc">Dissertation: Learning from Extremes: A Copula-Based Feature Selection Framework for Machine Learning-Driven Risk Prediction.</p>
+        </div>
+        <div class="tl-item reveal reveal-d1">
+          <p class="tl-date">2019 – 2021</p>
+          <h3 class="tl-title">M.S. in Mathematics</h3>
+          <p class="tl-org">University of Louisiana at Lafayette</p>
+        </div>
+        <div class="tl-item reveal reveal-d2">
+          <p class="tl-date">2016 – 2018</p>
+          <h3 class="tl-title">M.S. in Statistics</h3>
+          <p class="tl-org">University of Calcutta, India</p>
+        </div>
+        <div class="tl-item reveal reveal-d3">
+          <p class="tl-date">2013 – 2016</p>
+          <h3 class="tl-title">B.S. in Statistics</h3>
+          <p class="tl-org">Asutosh College, India</p>
+          <p class="tl-desc">Minors: Mathematics &amp; Computer Science.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    </div><!-- /.pub-list -->
-  </div>
-</section>
+  <div class="energy-divider" aria-hidden="true"></div>
 
+  <section id="publications" aria-labelledby="publications-heading">
+    <div class="container">
+      <div class="section-tag">Recent Work</div>
+      <h2 class="section-heading" id="publications-heading">Recent Publications</h2>
+      <div class="pub-list">
+        <article class="pub-item reveal">
+          <p class="pub-year">2026</p>
+          <h3 class="pub-title">A Copula Based Supervised Filter for Feature Selection in Machine Learning Driven Diabetes Risk Prediction</h3>
+          <p class="pub-authors">Agnideep Aich, Md. Monzur Murshed, Sameera Hewage, Amanda Mayeaux</p>
+          <p class="pub-venue">Published in Scientific Reports</p>
+          <div class="pub-links">
+            <a href="https://doi.org/10.1038/s41598-026-41874-9" class="pub-link" target="_blank" rel="noopener">DOI</a>
+          </div>
+        </article>
+        <article class="pub-item reveal reveal-d1">
+          <p class="pub-year">2026</p>
+          <h3 class="pub-title">The Minimax Lower Bound of Kernel Stein Discrepancy Estimation</h3>
+          <p class="pub-authors">J. Cribeiro-Ramallo, Agnideep Aich, F. Kalinke, Ashit Baran Aich, Zoltán Szabó</p>
+          <p class="pub-venue">Accepted at AISTATS 2026</p>
+          <div class="pub-links">
+            <a href="https://doi.org/10.48550/arXiv.2510.15058" class="pub-link" target="_blank" rel="noopener">DOI</a>
+          </div>
+        </article>
+        <article class="pub-item reveal reveal-d2">
+          <p class="pub-year">2026</p>
+          <h3 class="pub-title">Bayesian Inference for Joint Tail Risk in Paired Biomarkers via Archimedean Copulas with Restricted Jeffreys Priors</h3>
+          <p class="pub-authors">Agnideep Aich, Md. Monzur Murshed, Sameera Hewage, Ashit Baran Aich</p>
+          <p class="pub-venue">Preprint</p>
+          <div class="pub-links">
+            <a href="https://doi.org/10.48550/arXiv.2602.15319" class="pub-link" target="_blank" rel="noopener">DOI</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 
+  <div class="energy-divider" aria-hidden="true"></div>
 
-  <!-- ============================================================
-       CONTACT
-  ============================================================ -->
   <section id="contact" aria-labelledby="contact-heading">
     <div class="container">
       <div class="contact-inner">
-        <span class="tag">Get In Touch</span>
-        <h2 class="section-label reveal" id="contact-heading">Contact</h2>
-
-        <p class="reveal reveal-delay-1">
-          <p class="reveal reveal-delay-1">
-I’m always open to research collaborations, academic discussions, or just a good conversation. If you want to talk statistics, machine learning, or life outside research, reach out. Email me, or DM me on Instagram. I always respond!!
-</p>
-
-        </p>
-
-        
+        <div class="section-tag">Get In Touch</div>
+        <h2 class="section-heading reveal" id="contact-heading">Contact</h2>
+        <p class="reveal reveal-d1">I'm always open to research collaborations, academic discussions, or just a good conversation. If you want to talk statistics, machine learning, or life outside research, reach out. Email me, or DM me on Instagram. I always respond!!</p>
       </div>
     </div>
   </section>
 
-
-  <!-- ============================================================
-       FOOTER
-  ============================================================ -->
   <footer role="contentinfo">
     <div class="container">
-      <p>
-        &copy; <span id="year"></span> Agnideep Aich
-      </p>
+      <p>&copy; <span id="year"></span> Agnideep Aich</p>
     </div>
   </footer>
 
-
-  <!-- ============================================================
-       JAVASCRIPT — minimal, no dependencies
-  ============================================================ -->
   <script>
     'use strict';
 
-    /* ----- Footer year ----- */
     document.getElementById('year').textContent = new Date().getFullYear();
 
-
-    /* ----- Mobile hamburger menu ----- */
-    const hamburger  = document.getElementById('hamburger');
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobile-menu');
-
     hamburger.addEventListener('click', () => {
       const isOpen = mobileMenu.classList.toggle('open');
       hamburger.setAttribute('aria-expanded', isOpen);
     });
-
-    // Close mobile menu when a link is clicked
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         mobileMenu.classList.remove('open');
@@ -1294,58 +300,226 @@ I’m always open to research collaborations, academic discussions, or just a go
       });
     });
 
-
-    /* ----- Active nav link on scroll ----- */
-    const sections  = document.querySelectorAll('section[id]');
-    const navLinks  = document.querySelectorAll('.nav-link');
-
+    // Active nav
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
     function setActiveLink() {
       let current = '';
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop - 80;
-        if (window.scrollY >= sectionTop) {
-          current = section.getAttribute('id');
-        }
-      });
-
-      navLinks.forEach(link => {
-        link.classList.toggle('active',
-          link.getAttribute('href') === `#${current}`
-        );
-      });
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+      navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
     }
-
     window.addEventListener('scroll', setActiveLink, { passive: true });
-    setActiveLink(); // run once on load
+    setActiveLink();
 
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    /* ----- Intersection Observer — scroll reveal ----- */
-    const revealElements = document.querySelectorAll('.reveal');
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          // Stop observing once revealed
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.12,
-      rootMargin: '0px 0px -40px 0px'
-    });
-
-    revealElements.forEach(el => observer.observe(el));
-
-
-    /* ----- Nav shadow on scroll ----- */
+    // Nav glow
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       nav.style.boxShadow = window.scrollY > 20
-        ? '0 2px 30px rgba(0,0,0,0.6)'
+        ? '0 4px 40px rgba(229,0,37,.08), 0 1px 0 rgba(229,0,37,.12)'
         : 'none';
     }, { passive: true });
 
+
+    /* ═══════════════════════════════════════════════════════════════
+       FULL-PAGE CANVAS — Particles + Wireframe Geometry + Connections
+       Runs across the ENTIRE viewport at all times
+    ═══════════════════════════════════════════════════════════════ */
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, mouseX = -1000, mouseY = -1000;
+
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Track mouse for interactive glow
+    document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+
+    // ── PARTICLES ──
+    const PCOUNT = 80;
+    const parts = [];
+
+    function createParticle(randomY) {
+      return {
+        x: Math.random() * W,
+        y: randomY ? Math.random() * H : H + Math.random() * 100,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: -(Math.random() * 0.5 + 0.12),
+        size: Math.random() * 2.5 + 0.4,
+        baseOpacity: Math.random() * 0.55 + 0.15,
+        life: 0,
+        maxLife: Math.random() * 700 + 350
+      };
+    }
+    for (let i = 0; i < PCOUNT; i++) parts.push(createParticle(true));
+
+    function updateParticle(p) {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.life++;
+      if (p.life > p.maxLife || p.y < -30 || p.x < -30 || p.x > W + 30) {
+        Object.assign(p, createParticle(false));
+      }
+    }
+
+    function drawParticle(p) {
+      const fadeIn = Math.min(p.life / 80, 1);
+      const fadeOut = Math.min((p.maxLife - p.life) / 80, 1);
+      const a = p.baseOpacity * fadeIn * fadeOut;
+
+      // Mouse proximity glow boost
+      const dx = p.x - mouseX, dy = p.y - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const boost = dist < 150 ? (1 - dist / 150) * 0.5 : 0;
+
+      // Core
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(229,0,37,${a + boost})`;
+      ctx.fill();
+
+      // Glow
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size * 4, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(229,0,37,${(a + boost) * 0.12})`;
+      ctx.fill();
+    }
+
+    // ── CONNECTIONS ──
+    function drawConnections() {
+      const maxD = 110;
+      for (let i = 0; i < parts.length; i++) {
+        for (let j = i + 1; j < parts.length; j++) {
+          const dx = parts[i].x - parts[j].x;
+          const dy = parts[i].y - parts[j].y;
+          const d = dx * dx + dy * dy;
+          if (d < maxD * maxD) {
+            const a = (1 - Math.sqrt(d) / maxD) * 0.05;
+            ctx.beginPath();
+            ctx.moveTo(parts[i].x, parts[i].y);
+            ctx.lineTo(parts[j].x, parts[j].y);
+            ctx.strokeStyle = `rgba(229,0,37,${a})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    // ── GEOMETRIC WIREFRAMES ──
+    const geos = [];
+    const GCOUNT = 10;
+
+    function createGeo() {
+      return {
+        x: Math.random() * W,
+        y: Math.random() * H,
+        size: Math.random() * 55 + 15,
+        rot: Math.random() * Math.PI * 2,
+        rotV: (Math.random() - 0.5) * 0.003,
+        dx: (Math.random() - 0.5) * 0.12,
+        dy: (Math.random() - 0.5) * 0.08,
+        opacity: Math.random() * 0.06 + 0.015,
+        sides: [3, 4, 5, 6, 8][Math.floor(Math.random() * 5)],
+        phase: Math.random() * Math.PI * 2
+      };
+    }
+    for (let i = 0; i < GCOUNT; i++) geos.push(createGeo());
+
+    function updateGeo(g) {
+      g.rot += g.rotV;
+      g.x += g.dx;
+      g.y += g.dy;
+      g.phase += 0.008;
+      if (g.x < -120) g.x = W + 120;
+      if (g.x > W + 120) g.x = -120;
+      if (g.y < -120) g.y = H + 120;
+      if (g.y > H + 120) g.y = -120;
+    }
+
+    function drawGeo(g) {
+      const pulse = 1 + Math.sin(g.phase) * 0.12;
+      const s = g.size * pulse;
+
+      // Mouse proximity boost
+      const dx = g.x - mouseX, dy = g.y - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const boost = dist < 200 ? (1 - dist / 200) * 0.06 : 0;
+
+      ctx.save();
+      ctx.translate(g.x, g.y);
+      ctx.rotate(g.rot);
+
+      // Outer shape
+      ctx.beginPath();
+      for (let i = 0; i <= g.sides; i++) {
+        const angle = (Math.PI * 2 / g.sides) * i - Math.PI / 2;
+        const px = Math.cos(angle) * s;
+        const py = Math.sin(angle) * s;
+        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+      ctx.strokeStyle = `rgba(229,0,37,${g.opacity + boost})`;
+      ctx.lineWidth = 0.6;
+      ctx.stroke();
+
+      // Inner shape (smaller)
+      ctx.beginPath();
+      const inner = s * 0.5;
+      for (let i = 0; i <= g.sides; i++) {
+        const angle = (Math.PI * 2 / g.sides) * i - Math.PI / 2 + 0.2;
+        const px = Math.cos(angle) * inner;
+        const py = Math.sin(angle) * inner;
+        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+      ctx.strokeStyle = `rgba(229,0,37,${(g.opacity + boost) * 0.5})`;
+      ctx.lineWidth = 0.4;
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    // ── MOUSE TRAIL RING ──
+    function drawMouseRing() {
+      if (mouseX < 0) return;
+      ctx.beginPath();
+      ctx.arc(mouseX, mouseY, 60, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(229,0,37,0.04)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(mouseX, mouseY, 3, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(229,0,37,0.15)';
+      ctx.fill();
+    }
+
+    // ── ANIMATION LOOP ──
+    function animate() {
+      ctx.clearRect(0, 0, W, H);
+
+      // Geos
+      geos.forEach(g => { updateGeo(g); drawGeo(g); });
+
+      // Particles
+      parts.forEach(p => { updateParticle(p); drawParticle(p); });
+
+      // Connections
+      drawConnections();
+
+      // Mouse ring
+      drawMouseRing();
+
+      requestAnimationFrame(animate);
+    }
+    animate();
   </script>
 
 </body>
