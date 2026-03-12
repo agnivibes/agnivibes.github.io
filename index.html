@@ -286,9 +286,18 @@
     const music = document.getElementById("bgmusic");
     music.volume = 0.2;
 
-    document.addEventListener("click", () => {
-    music.play().catch(()=>{});
-    }, { once: true });
+    function startMusic() {
+  music.play().catch(()=>{});
+  document.removeEventListener("click", startMusic);
+  document.removeEventListener("scroll", startMusic);
+  document.removeEventListener("mousemove", startMusic);
+  document.removeEventListener("touchstart", startMusic);
+}
+
+document.addEventListener("click", startMusic);
+document.addEventListener("scroll", startMusic);
+document.addEventListener("mousemove", startMusic);
+document.addEventListener("touchstart", startMusic);
 
     // Mobile menu
     const hamburger = document.getElementById('hamburger');
