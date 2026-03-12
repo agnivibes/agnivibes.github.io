@@ -320,6 +320,14 @@
     }, { passive: true });
 
 
+    <audio autoplay loop id="bgmusic">
+      <source src="agni_theme.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+    document.getElementById("bgmusic").volume = 0.5;
+    </script>
+
     /* ═══════════════════════════════════════════════════════════════
        FULL-PAGE CANVAS — Particles + Wireframe Geometry + Connections
        Runs across the ENTIRE viewport at all times
