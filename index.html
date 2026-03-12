@@ -283,7 +283,12 @@
     'use strict';
 
     document.getElementById('year').textContent = new Date().getFullYear();
-    document.getElementById("bgmusic").volume = 0.5;
+    const music = document.getElementById("bgmusic");
+    music.volume = 0.5;
+
+    document.addEventListener("click", () => {
+    music.play().catch(()=>{});
+    }, { once: true });
 
     // Mobile menu
     const hamburger = document.getElementById('hamburger');
