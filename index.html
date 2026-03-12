@@ -283,15 +283,17 @@
     'use strict';
 
     document.getElementById('year').textContent = new Date().getFullYear();
-    const music = document.getElementById("bgmusic");
-    music.volume = 0.2;
 
-    function startMusic() {
-  music.play().catch(()=>{});
-  document.removeEventListener("click", startMusic);
-  document.removeEventListener("scroll", startMusic);
-  document.removeEventListener("mousemove", startMusic);
-  document.removeEventListener("touchstart", startMusic);
+const music = document.getElementById("bgmusic");
+music.volume = 0.2;
+
+function startMusic() {
+  music.play().then(() => {
+    document.removeEventListener("click", startMusic);
+    document.removeEventListener("scroll", startMusic);
+    document.removeEventListener("mousemove", startMusic);
+    document.removeEventListener("touchstart", startMusic);
+  }).catch(()=>{});
 }
 
 document.addEventListener("click", startMusic);
