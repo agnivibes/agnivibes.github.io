@@ -443,7 +443,7 @@
   <div class="gateway-particles" id="gateway-particles"></div>
   <div class="gateway-inner gateway-content">
     <div class="gateway-name">
-      AGNIDEEP<br>"<span class="agni">AGNI</span>" AICH
+      AGNIDEEP<br>“<span class="agni">AGNI</span>” AICH
     </div>
     <div class="gateway-status">Postdoctoral Researcher at Stanford University</div>
     <blockquote class="gateway-quote">
@@ -728,44 +728,79 @@
       });
     }
 
-    function showSection(index, immediate=false){
-      if(index < 0 || index >= sections.length) return;
-      const current = sections[currentIndex];
-      const next = sections[index];
-      const targetId = next.dataset.section;
-      const theme = sectionTheme[targetId];
-      if(immediate){
-        sections.forEach(s => { s.classList.remove('active'); s.style.opacity='0'; s.style.visibility='hidden'; s.style.pointerEvents='none'; s.style.transform='translate3d(0,0,0) scale(1)'; s.style.filter='blur(0px)'; });
-        next.classList.add('active');
-        next.style.opacity='1'; next.style.visibility='visible'; next.style.pointerEvents='auto';
-        next.querySelector('.section-scroll').scrollTop = 0;
-        currentIndex = index;
-        setTheme(targetId);
-        markReveal(targetId);
-        return;
-      }
-      if(isTransitioning || current === next) return;
-      isTransitioning = true;
-      flashPortal(theme.rgb);
-      next.classList.add('active');
-      next.style.visibility='visible';
-      next.style.pointerEvents='auto';
-      next.querySelector('.section-scroll').scrollTop = 0;
-      gsap.set(next,{opacity:0,z:420,scale:1.06,rotationY:0,rotationX:0,filter:'blur(22px)'});
-      setTheme(targetId);
-      gsap.timeline({defaults:{ease:'expo.inOut'}, onComplete(){
-        current.classList.remove('active');
-        gsap.set(current,{clearProps:'all'});
-        gsap.set(next,{clearProps:'all'});
-        next.classList.add('active');
-        currentIndex = index;
-        isTransitioning = false;
-        markReveal(targetId);
-      }})
-      .to(current,{opacity:0,z:-820,scale:.78,rotationY:0,rotationX:0,filter:'blur(24px)',duration:.7},0)
-      .to(next,{opacity:1,z:0,scale:1,rotationY:0,rotationX:0,filter:'blur(0px)',duration:1.0},.08);
-    }
+function showSection(index, immediate=false){
+  if(index < 0 || index >= sections.length) return;
+  const current = sections[currentIndex];
+  const next = sections[index];
+  const targetId = next.dataset.section;
+  const theme = sectionTheme[targetId];
 
+  if(immediate){
+    sections.forEach(s => {
+      s.classList.remove('active');
+      s.style.opacity = '0';
+      s.style.visibility = 'hidden';
+      s.style.pointerEvents = 'none';
+      s.style.transform = 'translate3d(0,0,0) scale(1)';
+      s.style.filter = 'blur(0px)';
+    });
+    next.classList.add('active');
+    next.style.opacity = '1';
+    next.style.visibility = 'visible';
+    next.style.pointerEvents = 'auto';
+    next.querySelector('.section-scroll').scrollTop = 0;
+    currentIndex = index;
+    setTheme(targetId);
+    markReveal(targetId);
+    return;
+  }
+
+  if(isTransitioning || current === next) return;
+  isTransitioning = true;
+
+  flashPortal(theme.rgb);
+
+  next.classList.add('active');
+  next.style.visibility = 'visible';
+  next.style.pointerEvents = 'auto';
+  next.querySelector('.section-scroll').scrollTop = 0;
+
+  gsap.set(next, {
+    opacity: 0,
+    z: 120,
+    scale: 1.02,
+    filter: 'blur(6px)'
+  });
+
+  setTheme(targetId);
+
+  gsap.timeline({
+    defaults: { ease: 'power2.out' },
+    onComplete(){
+      current.classList.remove('active');
+      gsap.set(current, { clearProps: 'all' });
+      gsap.set(next, { clearProps: 'all' });
+      next.classList.add('active');
+      currentIndex = index;
+      isTransitioning = false;
+      markReveal(targetId);
+    }
+  })
+  .to(current, {
+    opacity: 0,
+    z: -160,
+    scale: 0.96,
+    filter: 'blur(8px)',
+    duration: 0.42
+  }, 0)
+  .to(next, {
+    opacity: 1,
+    z: 0,
+    scale: 1,
+    filter: 'blur(0px)',
+    duration: 0.46
+  }, 0.05);
+}
     function enterSite(){
   if(!isGateway || isTransitioning) return;
   isGateway = false;
@@ -783,33 +818,34 @@
   firstSection.style.pointerEvents = 'auto';
   firstSection.querySelector('.section-scroll').scrollTop = 0;
 
-  gsap.set(firstSection,{opacity:0,z:420,scale:1.06,rotationY:0,rotationX:0,filter:'blur(22px)'});
+  gsap.set(firstSection, { opacity: 0, scale: 1.015 });
   setTheme('about');
 
   gsap.timeline({
-    defaults:{ease:'expo.inOut'},
+    defaults: { ease: 'power2.out' },
     onComplete(){
       gateway.style.display = 'none';
       nav.classList.add('visible');
-      gsap.set(nav,{opacity:1,y:0});
-      gsap.set(firstSection,{clearProps:'all'});
+      gsap.set(nav, { opacity: 1, y: 0 });
+      gsap.set(firstSection, { clearProps: 'all' });
       firstSection.classList.add('active');
       currentIndex = 0;
       isTransitioning = false;
       markReveal('about');
     }
   })
-  .to(gwContent,{opacity:0,z:-820,scale:.78,rotationY:0,rotationX:0,filter:'blur(24px)',duration:.7},0)
-  .to(gateway,{opacity:0,duration:.7},0)
-  .to(firstSection,{opacity:1,z:0,scale:1,rotationY:0,rotationX:0,filter:'blur(0px)',duration:1.0},.08);
+  .to(gwContent, { opacity: 0, scale: 0.985, duration: 0.32 }, 0)
+  .to(gateway, { opacity: 0, duration: 0.32 }, 0)
+  .to(firstSection, { opacity: 1, scale: 1, duration: 0.36 }, 0.04);
 }
 
     function returnToGateway(){
   if(isGateway || isTransitioning) return;
   isTransitioning = true;
+
   music.pause();
+  music.currentTime = 0;
   musicStarted = false;
-  document.addEventListener('click', startMusicOnInteraction);
 
   const current = sections[currentIndex];
   const gwContent = gateway.querySelector('.gateway-content') || gateway.querySelector('.gateway-inner');
@@ -819,31 +855,31 @@
   gateway.style.display = 'flex';
   gateway.style.opacity = '1';
 
-  gsap.set(gwContent,{opacity:0,z:420,scale:1.06,rotationY:0,rotationX:0,filter:'blur(22px)'});
+  gsap.set(gwContent, { opacity: 0, scale: 1.015 });
   flashPortal(rgb);
 
   gsap.timeline({
-    defaults:{ease:'expo.inOut'},
+    defaults: { ease: 'power2.out' },
     onComplete(){
       body.classList.remove('entered');
       sections.forEach(s => {
         s.classList.remove('active');
-        gsap.set(s,{clearProps:'all'});
+        gsap.set(s, { clearProps:'all' });
       });
-      gsap.set(gwContent,{clearProps:'all'});
+      gsap.set(gwContent, { clearProps:'all' });
       isGateway = true;
       isTransitioning = false;
+      armAboutMusicStart();
     }
   })
-  .to(current,{opacity:0,z:-820,scale:.78,rotationY:0,rotationX:0,filter:'blur(24px)',duration:.7},0)
-  .to(gateway,{opacity:1,duration:.7},0)
-  .to(gwContent,{opacity:1,z:0,scale:1,rotationY:0,rotationX:0,filter:'blur(0px)',duration:1.0},.08);
+  .to(current, { opacity: 0, scale: 0.985, duration: 0.32 }, 0)
+  .to(gateway, { opacity: 1, duration: 0.32 }, 0)
+  .to(gwContent, { opacity: 1, scale: 1, duration: 0.36 }, 0.04);
 }
-
   function buildGatewayParticles(){
   const wrap = document.getElementById('gateway-particles');
   wrap.innerHTML = '';
-  const count = 160;
+  const count = 120;
 
   for(let i=0;i<count;i++){
     const span = document.createElement('span');
@@ -884,14 +920,19 @@
     gwEnterBtn.addEventListener('click', enterSite);
 
     // Music starts on first click/interaction AFTER entering the site (not on Enter itself)
-    function startMusicOnInteraction(){
-      if(!isGateway && !musicStarted){
-        music.play().catch(()=>{});
-        musicStarted = true;
-        document.removeEventListener('click', startMusicOnInteraction);
-      }
-    }
-    document.addEventListener('click', startMusicOnInteraction);
+    function startMusic(){
+  if(isGateway || musicStarted) return;
+  music.play().catch(() => {});
+  musicStarted = true;
+}
+
+function armAboutMusicStart(){
+  const aboutSection = document.getElementById('about-section');
+  if(!aboutSection) return;
+  aboutSection.addEventListener('click', startMusic, { once: true });
+}
+
+armAboutMusicStart();
 
     function observeSectionReveals(){
       const observer = new IntersectionObserver(entries => {
