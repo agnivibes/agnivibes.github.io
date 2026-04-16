@@ -137,13 +137,59 @@
 
 .gateway-name{
   font-family:var(--font-display);
-  font-size:clamp(3.15rem,8vw,6rem);
   font-weight:900;
   line-height:1.03;
   letter-spacing:.08em;
   margin-bottom:22px;
   color:#f0e8e0;
   text-shadow:0 0 20px rgba(255,255,255,.14);
+}
+
+.gateway-line-1,
+.gateway-line-2{
+  display:block;
+}
+
+.gateway-line-1{
+  font-size:clamp(3.15rem,8vw,6rem);
+}
+
+.gateway-line-2{
+  font-size:clamp(3.15rem,8vw,6rem);
+  white-space:nowrap;
+}
+
+.gateway-status{
+  font-family:var(--font-body);
+  font-size:clamp(.98rem,2vw,1.28rem);
+  font-weight:300;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.82);
+  margin-bottom:34px;
+  text-shadow:0 0 10px rgba(255,255,255,.07);
+}
+
+.gateway-quote{
+  font-family:var(--font-body);
+  font-style:italic;
+  font-size:clamp(.95rem,1.55vw,1.16rem);
+  color:rgba(255,255,255,.74);
+  max-width:560px;
+  margin:0 auto 50px;
+  line-height:1.7;
+  text-shadow:0 0 10px rgba(255,255,255,.05);
+}
+
+.gateway-quote cite{
+  display:block;
+  margin-top:10px;
+  font-style:normal;
+  font-family:var(--font-body);
+  font-size:.92rem;
+  letter-spacing:.15em;
+  color:rgba(255,255,255,.68);
+  text-shadow:0 0 8px rgba(255,255,255,.04);
 }
 
 .agni{
@@ -202,38 +248,7 @@
   }
 }
 
-.gateway-status{
-  font-family:var(--font-body);
-  font-size:clamp(.98rem,2vw,1.28rem);
-  font-weight:300;
-  letter-spacing:.25em;
-  text-transform:uppercase;
-  color:rgba(255,255,255,.82);
-  margin-bottom:34px;
-  text-shadow:0 0 10px rgba(255,255,255,.07);
-}
 
-.gateway-quote{
-  font-family:var(--font-body);
-  font-style:italic;
-  font-size:clamp(.95rem,1.55vw,1.16rem);
-  color:rgba(255,255,255,.74);
-  max-width:560px;
-  margin:0 auto 50px;
-  line-height:1.7;
-  text-shadow:0 0 10px rgba(255,255,255,.05);
-}
-
-.gateway-quote cite{
-  display:block;
-  margin-top:10px;
-  font-style:normal;
-  font-family:var(--font-body);
-  font-size:.92rem;
-  letter-spacing:.15em;
-  color:rgba(255,255,255,.68);
-  text-shadow:0 0 8px rgba(255,255,255,.04);
-}
 
 .gateway-enter{
   display:inline-block;
@@ -460,8 +475,9 @@
   <div class="gateway-particles" id="gateway-particles"></div>
   <div class="gateway-inner gateway-content">
     <div class="gateway-name">
-      AGNIDEEP<br>“<span class="agni">AGNI</span>” AICH
-    </div>
+  <span class="gateway-line-1">AGNIDEEP</span>
+  <span class="gateway-line-2">“<span class="agni">AGNI</span>” AICH</span>
+</div>
     <div class="gateway-status">Postdoctoral Researcher at Stanford University</div>
     <blockquote class="gateway-quote">
       "To truly laugh, you must be able to take your pain, and play with it."
@@ -940,30 +956,37 @@ function showSection(index, immediate=false){
       hamburger.setAttribute('aria-expanded', isOpen);
     });
     [...navLinks, ...mobileLinks].forEach(link => {
-      link.addEventListener('click', ()=>{
-        const idx = sections.findIndex(s => s.dataset.section === link.dataset.dest);
-        if(idx >= 0) showSection(idx);
-        mobileMenu.classList.remove('open');
-        hamburger.setAttribute('aria-expanded','false');
-      });
-    });
-    navLogoBtn.addEventListener('click', returnToGateway);
+  link.addEventListener('click', ()=>{
+    startMusic();
+    const idx = sections.findIndex(s => s.dataset.section === link.dataset.dest);
+    if(idx >= 0) showSection(idx);
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded','false');
+  });
+});
+    navLogoBtn.addEventListener('click', ()=>{
+  startMusic();
+  returnToGateway();
+});
     gwEnterBtn.addEventListener('click', enterSite);
 
     // Music starts on first click/interaction AFTER entering the site (not on Enter itself)
-    function startMusic(){
+    // Music starts on first interaction anywhere inside the entered site, but not on the gateway Enter button
+function startMusic(){
   if(isGateway || musicStarted) return;
   music.play().catch(() => {});
   musicStarted = true;
 }
 
-function armAboutMusicStart(){
-  const aboutSection = document.getElementById('about-section');
-  if(!aboutSection) return;
-  aboutSection.addEventListener('click', startMusic, { once: true });
+function armSiteMusicStart(){
+  const triggerMusic = () => startMusic();
+
+  siteShell.addEventListener('click', triggerMusic, { once: true });
+  nav.addEventListener('click', triggerMusic, { once: true });
+  mobileMenu.addEventListener('click', triggerMusic, { once: true });
 }
 
-armAboutMusicStart();
+armSiteMusicStart();
 
     function observeSectionReveals(){
       const observer = new IntersectionObserver(entries => {
