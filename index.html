@@ -4,540 +4,1126 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agnideep Aich</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <style>
-    :root{--void:#010108;--deep:#06060f;--panel:#0a0a18;--elevated:#0f0f22;--surface:#14142e;--red:#e50025;--red-bright:#ff1744;--red-hot:#ff3d5a;--red-neon:#ff0040;--red-glow:rgba(229,0,37,.5);--red-mid:rgba(229,0,37,.25);--red-dim:rgba(229,0,37,.1);--red-faint:rgba(229,0,37,.04);--white:#f0f0f8;--grey:#e6e6f2;--grey-dim:#d8d8e8;--border:rgba(229,0,37,.08);--border-mid:rgba(229,0,37,.2);--border-bright:rgba(229,0,37,.4);--font-display:'Orbitron',sans-serif;--font-body:'Rajdhani',sans-serif;--font-mono:'Share Tech Mono',monospace;--nav-h:64px}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;font-size:16px}body{font-family:var(--font-body);background:var(--void);color:var(--white);line-height:1.7;overflow-x:hidden;font-weight:400;cursor:crosshair}a{color:inherit;text-decoration:none}img{max-width:100%;display:block}ul{list-style:none}::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--void)}::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px;box-shadow:0 0 6px var(--red-glow)}#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}.overlay-scanlines{position:fixed;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px);mix-blend-mode:multiply}.overlay-vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 50%,rgba(1,1,8,.6) 100%)}.container{max-width:1200px;margin:0 auto;padding:0 32px;position:relative;z-index:5}#nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1000;background:rgba(1,1,8,.8);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px;transition:all .3s ease}.nav-logo{font-family:var(--font-display);font-size:1.15rem;font-weight:800;letter-spacing:.12em;color:var(--red-bright);display:flex;align-items:center;gap:4px;text-shadow:0 0 20px var(--red-glow)}.nav-logo .dim{opacity:.4;color:var(--grey-dim)}.beacon{width:8px;height:8px;background:var(--red-bright);border-radius:50%;box-shadow:0 0 8px var(--red-glow),0 0 24px var(--red-dim);animation:beacon 2s ease-in-out infinite;margin-right:12px}@keyframes beacon{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}.nav-links{display:flex;gap:4px;align-items:center}.nav-links a{font-family:var(--font-display);font-size:.58rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);padding:7px 14px;border:1px solid transparent;transition:all .3s ease;position:relative}.nav-links a::before{content:'';position:absolute;bottom:0;left:50%;width:0;height:1px;background:var(--red);box-shadow:0 0 8px var(--red-glow);transition:all .3s ease;transform:translateX(-50%)}.nav-links a:hover,.nav-links a.active{color:var(--red-bright);text-shadow:0 0 12px var(--red-glow)}.nav-links a:hover::before,.nav-links a.active::before{width:100%}.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}.hamburger span{display:block;width:24px;height:2px;background:var(--red-bright);transition:all .3s ease;box-shadow:0 0 4px var(--red-dim)}.mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(1,1,8,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:999;flex-direction:column;padding:12px 0 20px}.mobile-menu.open{display:flex}.mobile-menu a{padding:14px 32px;font-family:var(--font-display);font-size:.68rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);border-left:2px solid transparent;transition:all .3s ease}.mobile-menu a:hover{color:var(--red-bright);border-left-color:var(--red);background:var(--red-faint)}section{padding:120px 0;position:relative;z-index:5}.section-tag{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);display:inline-flex;align-items:center;gap:12px;margin-bottom:14px;text-shadow:0 0 10px var(--red-dim)}.section-tag::before{content:'>';color:var(--grey-dim);animation:cursor-blink 1.2s step-end infinite}@keyframes cursor-blink{0%,100%{opacity:1}50%{opacity:0}}.section-heading{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:.08em;color:var(--white);margin-bottom:56px;position:relative;display:inline-block}.section-heading::after{content:'';position:absolute;left:0;bottom:-12px;width:50px;height:2px;background:var(--red);box-shadow:0 0 12px var(--red-glow),0 0 30px var(--red-dim)}.energy-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent 0%,var(--red-dim) 20%,var(--red) 50%,var(--red-dim) 80%,transparent 100%);box-shadow:0 0 12px var(--red-dim);position:relative;z-index:5;overflow:visible}.energy-divider::before{content:'';position:absolute;top:-3px;left:0;right:0;bottom:-3px;background:linear-gradient(90deg,transparent 0%,var(--red-faint) 20%,var(--red-dim) 50%,var(--red-faint) 80%,transparent 100%)}.energy-divider::after{content:'';position:absolute;top:-1px;width:80px;height:3px;background:linear-gradient(90deg,transparent,var(--red-bright),transparent);box-shadow:0 0 16px var(--red-glow);animation:energy-travel 4s linear infinite}@keyframes energy-travel{0%{left:-80px}100%{left:100%}}#hero{min-height:100vh;display:flex;align-items:center;padding-top:var(--nav-h);position:relative;z-index:5;overflow:hidden}.hero-beam{position:absolute;top:-30%;right:-15%;width:700px;height:1400px;background:linear-gradient(165deg,var(--red) 0%,transparent 40%);opacity:.04;transform:rotate(-12deg);pointer-events:none;animation:beam-breathe 6s ease-in-out infinite}.hero-beam-2{position:absolute;bottom:-20%;left:-10%;width:500px;height:1000px;background:linear-gradient(15deg,var(--red) 0%,transparent 35%);opacity:.03;transform:rotate(8deg);pointer-events:none;animation:beam-breathe 8s ease-in-out infinite reverse}@keyframes beam-breathe{0%,100%{opacity:.04}50%{opacity:.08}}.hud{position:absolute;pointer-events:none;z-index:3}.hud-brackets{top:18%;left:6%;width:60px;height:60px}.hud-brackets::before,.hud-brackets::after{content:'';position:absolute}.hud-brackets::before{top:0;left:0;width:16px;height:16px;border-top:1px solid rgba(229,0,37,.25);border-left:1px solid rgba(229,0,37,.25)}.hud-brackets::after{bottom:0;right:0;width:16px;height:16px;border-bottom:1px solid rgba(229,0,37,.25);border-right:1px solid rgba(229,0,37,.25)}.hud-reticle{top:35%;right:10%;width:30px;height:30px;border:1px solid rgba(229,0,37,.12);border-radius:50%;animation:reticle-spin 15s linear infinite}.hud-reticle::before{content:'';position:absolute;top:50%;left:-8px;right:-8px;height:1px;background:rgba(229,0,37,.08)}.hud-reticle::after{content:'';position:absolute;left:50%;top:-8px;bottom:-8px;width:1px;background:rgba(229,0,37,.08)}@keyframes reticle-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}.hud-data{bottom:18%;right:6%;font-family:var(--font-mono);font-size:.55rem;color:var(--red-bright);letter-spacing:.15em;writing-mode:vertical-rl;animation:hud-flicker 5s ease-in-out infinite}@keyframes hud-flicker{0%,100%{opacity:1}48%{opacity:1}50%{opacity:.2}52%{opacity:1}80%{opacity:1}82%{opacity:.3}84%{opacity:1}}.hud-hex{bottom:30%;left:8%;width:50px;height:50px;opacity:.1;animation:reticle-spin 25s linear infinite reverse}.hero-content{position:relative;z-index:10;max-width:900px}.hero-name{font-family:var(--font-display);font-size:clamp(2.6rem,7.5vw,5.5rem);font-weight:900;line-height:.95;letter-spacing:.04em;color:var(--red-bright);margin-bottom:28px;text-shadow:0 0 40px var(--red-glow),0 0 80px var(--red-dim);position:relative;display:inline-block;cursor:default;animation:name-glow 4s ease-in-out infinite}{0%,100%{text-shadow:0 0 40px var(--red-glow),0 0 80px var(--red-dim)}50%{text-shadow:0 0 70px var(--red-glow),0 0 140px var(--red-mid)}}20%{text-shadow:-3px 0 #ff0040,3px 0 #00f0ff;transform:translate(-2px,1px)}40%{text-shadow:3px 0 #ff0040,-3px 0 #00f0ff;transform:translate(2px,-1px)}60%{text-shadow:-2px 0 #ff0040,2px 0 #00f0ff;transform:translate(1px,2px)}80%{text-shadow:2px 0 #ff0040,-1px 0 #00f0ff;transform:translate(-1px,-1px)}100%{text-shadow:0 0 40px var(--red-glow),0 0 80px var(--red-dim);transform:translate(0)}}.hero-nickname{font-family:var(--font-display);font-size:clamp(.75rem,2vw,1rem);font-weight:500;letter-spacing:.5em;color:var(--grey);margin-bottom:24px}.hero-nickname .bk{color:var(--red);opacity:.5}.hero-status{font-family:var(--font-mono);font-size:.95rem;color:var(--white);letter-spacing:.22em;margin-bottom:32px;display:flex;align-items:center;gap:10px;text-shadow:0 0 10px var(--red-dim)}.status-dot{display:inline-block;width:6px;height:6px;background:var(--red-bright);border-radius:50%;box-shadow:0 0 6px var(--red-glow);animation:beacon 1.5s step-end infinite}.hero-quote{position:relative;padding:16px 0 16px 24px;max-width:520px;margin-bottom:44px;font-family:var(--font-body);font-size:.95rem;color:var(--white);font-style:italic;line-height:1.7}.hero-quote::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--red),transparent);box-shadow:0 0 10px var(--red-dim)}.hero-quote cite{display:block;margin-top:8px;font-style:normal;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red)}.link-bar{display:flex;gap:8px;flex-wrap:wrap}.link-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;font-family:var(--font-display);font-size:.6rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);background:rgba(229,0,37,.03);border:1px solid var(--border);clip-path:polygon(0% 0%,calc(100% - 8px) 0%,100% 8px,100% 100%,8px 100%,0% calc(100% - 8px));transition:all .3s ease;position:relative}.link-btn:hover{color:var(--white);border-color:var(--red);background:rgba(229,0,37,.08);box-shadow:0 0 20px var(--red-dim),inset 0 0 20px var(--red-faint);text-shadow:0 0 8px var(--red-glow)}#about{background:transparent}.about-grid{display:grid;grid-template-columns:260px 1fr;gap:64px;align-items:start}.profile-frame{position:relative;width:240px;height:240px;margin:0 auto}.profile-ring{position:absolute;inset:-16px;border:1px solid var(--red-bright);clip-path:polygon(30% 0%,70% 0%,100% 30%,100% 70%,70% 100%,30% 100%,0% 70%,0% 30%);animation:reticle-spin 20s linear infinite;box-shadow:0 0 14px var(--red-glow)}.profile-ring-2{position:absolute;inset:-24px;border:1px solid rgba(229,0,37,.25);clip-path:polygon(30% 0%,70% 0%,100% 30%,100% 70%,70% 100%,30% 100%,0% 70%,0% 30%);animation:reticle-spin 30s linear infinite reverse}.profile-glow{position:absolute;inset:-30px;background:radial-gradient(circle,var(--red-mid) 0%,transparent 65%);animation:glow-pulse 3s ease-in-out infinite;z-index:-1}@keyframes glow-pulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.8;transform:scale(1.05)}}.profile-img{width:240px;height:240px;object-fit:cover;clip-path:polygon(15% 0%,85% 0%,100% 15%,100% 85%,85% 100%,15% 100%,0% 85%,0% 15%);background:var(--panel)}.profile-corner{position:absolute;width:12px;height:12px}.profile-corner.tl{top:-4px;left:-4px;border-top:2px solid var(--red);border-left:2px solid var(--red)}.profile-corner.tr{top:-4px;right:-4px;border-top:2px solid var(--red);border-right:2px solid var(--red)}.profile-corner.bl{bottom:-4px;left:-4px;border-bottom:2px solid var(--red);border-left:2px solid var(--red)}.profile-corner.br{bottom:-4px;right:-4px;border-bottom:2px solid var(--red);border-right:2px solid var(--red)}.about-text p{font-size:1rem;color:var(--grey);margin-bottom:20px;line-height:1.85}.about-text a{color:var(--red-bright);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--border-mid);transition:text-decoration-color .3s}.about-text a:hover{text-decoration-color:var(--red-bright)}#research{background:transparent}.research-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}.research-card{background:var(--panel);border:1px solid var(--border);padding:32px 28px;position:relative;overflow:hidden;transition:all .4s ease;clip-path:polygon(0% 0%,calc(100% - 20px) 0%,100% 20px,100% 100%,20px 100%,0% calc(100% - 20px))}.research-card::before{content:'';position:absolute;top:-1px;right:-1px;width:30px;height:30px;background:linear-gradient(225deg,var(--red) 50%,transparent 50%);opacity:.4;transition:opacity .4s ease}.research-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--red);box-shadow:0 0 10px var(--red-glow);transition:width .6s ease}.research-card:hover{border-color:var(--border-bright);background:var(--elevated);transform:translateY(-3px);box-shadow:0 12px 40px rgba(229,0,37,.06)}.research-card:hover::before{opacity:1}.research-card:hover::after{width:100%}.card-index{font-family:var(--font-display);font-size:.55rem;font-weight:700;letter-spacing:.25em;color:var(--red);opacity:.4;margin-bottom:16px}.card-title{font-family:var(--font-display);font-size:.95rem;font-weight:700;letter-spacing:.06em;color:var(--white);margin-bottom:14px;line-height:1.4}.card-desc{font-size:.92rem;color:var(--grey);line-height:1.7}#experience,#education{background:transparent}.timeline{position:relative;padding-left:36px}.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--red),var(--red-dim) 60%,transparent);box-shadow:0 0 6px var(--red-dim)}.tl-item{position:relative;margin-bottom:48px;padding-left:28px}.tl-item:last-child{margin-bottom:0}.tl-item::before{content:'';position:absolute;left:-41px;top:6px;width:10px;height:10px;background:var(--red);transform:rotate(45deg);box-shadow:0 0 12px var(--red-glow),0 0 24px var(--red-dim)}.tl-item::after{content:'';position:absolute;left:-31px;top:10px;width:28px;height:1px;background:linear-gradient(90deg,var(--red-dim),transparent)}.tl-date{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:6px;text-shadow:0 0 8px var(--red-dim)}.tl-title{font-family:var(--font-display);font-size:.92rem;font-weight:700;letter-spacing:.05em;color:var(--white);margin-bottom:4px}.tl-org{font-size:.92rem;font-weight:500;color:var(--grey);margin-bottom:10px}.tl-desc{font-size:.9rem;color:var(--grey-dim);line-height:1.7}.tl-desc a{color:var(--red-bright);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--border-mid)}#publications{background:transparent}.pub-list{display:flex;flex-direction:column;gap:16px}.pub-item{background:var(--panel);border:1px solid var(--border);padding:28px 28px 28px 32px;position:relative;transition:all .3s ease;border-left:2px solid transparent}.pub-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:transparent;box-shadow:none;transition:all .3s ease}.pub-item:hover{border-left-color:var(--red);background:var(--elevated)}.pub-item:hover::before{background:var(--red);box-shadow:0 0 16px var(--red-glow),-4px 0 20px var(--red-dim)}.pub-year{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:10px;text-shadow:0 0 6px var(--red-dim)}.pub-title{font-weight:700;font-size:1.02rem;color:var(--white);margin-bottom:8px;line-height:1.5}.pub-authors{font-size:.85rem;color:var(--grey-dim);margin-bottom:6px}.pub-venue{font-size:.85rem;color:var(--grey);font-style:italic}.pub-links{margin-top:14px;display:flex;gap:8px}.pub-link{font-family:var(--font-display);font-size:.58rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--red-bright);border:1px solid var(--border-bright);padding:4px 14px;transition:all .3s ease;clip-path:polygon(0% 0%,calc(100% - 6px) 0%,100% 6px,100% 100%,6px 100%,0% calc(100% - 6px))}.pub-link:hover{background:var(--red-dim);box-shadow:0 0 12px var(--red-dim)}#contact{background:transparent;position:relative;overflow:hidden}.contact-inner{position:relative;z-index:5;max-width:620px}.contact-inner p{font-size:1.05rem;color:var(--grey);line-height:1.85;margin-bottom:32px}footer{background:transparent;border-top:1px solid var(--border);padding:28px 0;text-align:center;position:relative;z-index:5}footer p{font-family:var(--font-mono);font-size:.68rem;color:var(--grey-dim);letter-spacing:.1em}footer span{color:var(--red)}.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}.reveal.visible{opacity:1;transform:translateY(0)}.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}.hero-anim{opacity:0;transform:translateY(30px);animation:hero-in .9s cubic-bezier(.16,1,.3,1) forwards}.ha-d1{animation-delay:.15s}.ha-d2{animation-delay:.3s}.ha-d3{animation-delay:.45s}.ha-d4{animation-delay:.6s}.ha-d5{animation-delay:.75s}@keyframes hero-in{to{opacity:1;transform:translateY(0)}}@media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:40px}.profile-frame{margin:0 auto}.nav-links{display:none}.hamburger{display:flex}}@media(max-width:600px){section{padding:80px 0}.container{padding:0 20px}.research-grid{grid-template-columns:1fr}.link-bar{gap:6px}.link-btn{padding:8px 12px;font-size:.55rem}}
+    :root{
+      --void:#010108;
+      --deep:#06060f;
+      --panel:#0a0a18;
+      --elevated:#0f0f22;
+      --surface:#14142e;
+      --white:#f0f0f8;
+      --grey:#e6e6f2;
+      --grey-dim:#d8d8e8;
+      --muted:#a7a7ba;
+      --nav-h:64px;
+      --hero:#ff1f1f;
+      --about:#ff1f1f;
+      --research:#a855f7;
+      --experience:#00cfc8;
+      --education:#ff6a00;
+      --publications:#0080ff;
+      --contact:#ff2d78;
+      --accent:#ff1f1f;
+      --accent-rgb:255,31,31;
+      --accent-border:rgba(255,23,68,.16);
+      --accent-shadow:rgba(255,23,68,.42);
+      --font-display:'Orbitron',sans-serif;
+      --font-body:'Rajdhani',sans-serif;
+      --font-mono:'Share Tech Mono',monospace;
+      --font-serif:'Cinzel',serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:var(--font-body);
+      background:var(--void);
+      color:var(--white);
+      line-height:1.7;
+      overflow:hidden;
+      cursor:default;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    button{font:inherit}
+    ::selection{background:rgba(255,255,255,.12);color:#fff}
+    ::-webkit-scrollbar{width:4px;height:4px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:rgba(var(--accent-rgb),.8);border-radius:999px;box-shadow:0 0 10px rgba(var(--accent-rgb),.25)}
+
+    #bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+    .overlay-scanlines{position:fixed;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.045) 2px,rgba(0,0,0,.045) 4px);mix-blend-mode:multiply;opacity:.92}
+    .overlay-vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at 50% 45%,transparent 35%,rgba(1,1,8,.18) 62%,rgba(1,1,8,.72) 100%),radial-gradient(circle at 50% 120%,rgba(var(--accent-rgb),.05),transparent 48%);transition:background .8s ease}
+    .section-atmosphere{position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(circle at 50% 120%,rgba(var(--accent-rgb),.08) 0%,transparent 42%),radial-gradient(circle at 10% 10%,rgba(var(--accent-rgb),.03),transparent 34%),radial-gradient(circle at 90% 20%,rgba(var(--accent-rgb),.035),transparent 26%);transition:background .8s ease,opacity .5s ease}
+    #portal-burst{position:fixed;inset:0;z-index:80;pointer-events:none;opacity:0;background:radial-gradient(circle at center,rgba(255,255,255,.2) 0%,rgba(var(--accent-rgb),.18) 20%,rgba(var(--accent-rgb),.08) 36%,transparent 58%),radial-gradient(circle at center,rgba(var(--accent-rgb),.15),transparent 68%);mix-blend-mode:screen;filter:blur(0px)}
+
+.gateway{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#050507;
+  overflow:hidden;
+}
+
+.gateway::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse at 50% 100%,rgba(255,26,26,.14) 0%,rgba(255,26,26,.08) 25%,rgba(255,26,26,.03) 52%,transparent 78%),
+    radial-gradient(ellipse at 40% 100%,rgba(255,26,26,.09) 0%,transparent 60%),
+    radial-gradient(ellipse at 65% 100%,rgba(255,26,26,.07) 0%,transparent 50%);
+  animation:gatewayPulse 3s ease-in-out infinite;
+  pointer-events:none;
+}
+
+@keyframes gatewayPulse{
+  0%,100%{opacity:.72}
+  15%{opacity:.92}
+  30%{opacity:.62}
+  45%{opacity:1}
+  60%{opacity:.8}
+  75%{opacity:.95}
+  90%{opacity:.68}
+}
+
+.gateway-particles{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:2;
+}
+
+.gateway-particle{
+  position:absolute;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.9) 0%, rgba(255,60,40,.6) 40%, rgba(255,20,20,.15) 70%, transparent 100%);
+  opacity:.18;
+  filter:blur(.3px);
+  box-shadow:0 0 6px rgba(255,31,31,.3), 0 0 14px rgba(255,31,31,.12);
+  animation:gatewayFloat linear infinite;
+  will-change:transform,opacity;
+}
+
+@keyframes gatewayFloat{
+  0%{transform:translate3d(0,18vh,0) scale(.8);opacity:0}
+  10%{opacity:.2}
+  30%{opacity:.38}
+  70%{opacity:.3}
+  100%{transform:translate3d(0,-110vh,0) scale(1.05);opacity:0}
+}
+
+.gateway-inner{
+  position:relative;
+  z-index:10;
+  width:min(92vw,1200px);
+  text-align:center;
+  padding:24px 24px 36px;
+  will-change:transform,opacity,filter;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+
+.gateway-name{
+  font-family:var(--font-display);
+  font-size:clamp(3.15rem,8vw,6rem);
+  font-weight:900;
+  line-height:1.03;
+  letter-spacing:.08em;
+  margin-bottom:22px;
+  color:#f0e8e0;
+  text-shadow:0 0 20px rgba(255,255,255,.14);
+}
+
+.agni{
+  color:#ff1a1a;
+  text-shadow:
+    0 0 8px #ff1a1a,
+    0 0 30px rgba(255,26,26,.55),
+    0 0 60px rgba(255,26,26,.28),
+    0 0 100px rgba(255,26,26,.12);
+  animation:neonFlickerStrong 2.5s ease-in-out infinite;
+}
+
+@keyframes neonFlickerStrong{
+  0%,100%{
+    opacity:1;
+    text-shadow:
+      0 0 8px #ff1a1a,
+      0 0 30px rgba(255,26,26,.55),
+      0 0 60px rgba(255,26,26,.28),
+      0 0 100px rgba(255,26,26,.12);
+  }
+  8%{
+    opacity:.82;
+    text-shadow:
+      0 0 4px #ff1a1a,
+      0 0 14px rgba(255,26,26,.28);
+  }
+  10%{opacity:1}
+  36%{
+    opacity:.9;
+    text-shadow:
+      0 0 6px #ff1a1a,
+      0 0 18px rgba(255,26,26,.38),
+      0 0 40px rgba(255,26,26,.16);
+  }
+  40%{opacity:1}
+  58%{
+    opacity:.84;
+    text-shadow:
+      0 0 5px #ff1a1a,
+      0 0 16px rgba(255,26,26,.3);
+  }
+  62%{opacity:1}
+  74%{
+    opacity:.78;
+    text-shadow:
+      0 0 4px #ff1a1a,
+      0 0 12px rgba(255,26,26,.22);
+  }
+  78%{
+    opacity:1;
+    text-shadow:
+      0 0 10px #ff1a1a,
+      0 0 34px rgba(255,26,26,.62),
+      0 0 70px rgba(255,26,26,.3);
+  }
+}
+
+.gateway-status{
+  font-family:var(--font-body);
+  font-size:clamp(.98rem,2vw,1.28rem);
+  font-weight:300;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.82);
+  margin-bottom:34px;
+  text-shadow:0 0 10px rgba(255,255,255,.07);
+}
+
+.gateway-quote{
+  font-family:var(--font-body);
+  font-style:italic;
+  font-size:clamp(.95rem,1.55vw,1.16rem);
+  color:rgba(255,255,255,.74);
+  max-width:560px;
+  margin:0 auto 50px;
+  line-height:1.7;
+  text-shadow:0 0 10px rgba(255,255,255,.05);
+}
+
+.gateway-quote cite{
+  display:block;
+  margin-top:10px;
+  font-style:normal;
+  font-family:var(--font-body);
+  font-size:.92rem;
+  letter-spacing:.15em;
+  color:rgba(255,255,255,.68);
+  text-shadow:0 0 8px rgba(255,255,255,.04);
+}
+
+.gateway-enter{
+  display:inline-block;
+  padding:14px 55px;
+  border:1.5px solid #ff1a1a;
+  color:#ff1a1a;
+  font-family:var(--font-display);
+  font-size:.85rem;
+  font-weight:700;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  cursor:pointer;
+  background:rgba(255,26,26,.05);
+  position:relative;
+  overflow:hidden;
+  transition:all .4s ease;
+  box-shadow:
+    0 0 15px rgba(255,26,26,.25),
+    0 0 40px rgba(255,26,26,.1);
+  text-shadow:0 0 8px rgba(255,26,26,.5);
+}
+
+.gateway-enter:hover{
+  background:#ff1a1a;
+  color:#0a0a0c;
+  box-shadow:
+    0 0 10px #ff1a1a,
+    0 0 40px rgba(255,26,26,.5),
+    0 0 80px rgba(255,26,26,.25);
+  text-shadow:none;
+}
+
+    
+
+
+
+
+    .site-shell{position:relative;z-index:10;width:100%;height:100vh;visibility:hidden;opacity:0;pointer-events:none}
+    body.entered .site-shell{visibility:visible;opacity:1;pointer-events:auto}
+
+    #nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1000;background:rgba(1,1,8,.74);backdrop-filter:blur(24px) saturate(1.34);-webkit-backdrop-filter:blur(24px) saturate(1.34);border-bottom:1px solid rgba(var(--accent-rgb),.12);display:flex;align-items:center;justify-content:space-between;padding:0 32px;transform:translateY(-100%);opacity:0;box-shadow:none;transition:border-color .4s ease,box-shadow .4s ease}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:1rem;font-weight:800;letter-spacing:.16em;color:var(--white);text-transform:uppercase;cursor:pointer;user-select:none;background:none;border:none;outline:none;-webkit-appearance:none;appearance:none}
+    .beacon{width:8px;height:8px;border-radius:50%;background:#ff1a1a;box-shadow:0 0 8px rgba(255,26,26,.45),0 0 24px rgba(255,26,26,.22);animation:beacon 2s ease-in-out infinite;flex-shrink:0}
+    @keyframes beacon{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.72)}}
+    .logo-a{color:#ff1a1a;text-shadow:0 0 8px rgba(255,26,26,.65),0 0 18px rgba(255,26,26,.44),0 0 38px rgba(255,26,26,.18);letter-spacing:.16em}
+    .logo-rest{color:rgba(240,240,248,.84);letter-spacing:.16em}
+    .nav-links{display:flex;gap:4px;align-items:center}
+    .nav-links a{font-family:var(--font-display);font-size:.58rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);padding:7px 14px;border:1px solid transparent;transition:all .3s ease;position:relative;cursor:pointer}
+    .nav-links a::before{content:'';position:absolute;bottom:0;left:50%;width:0;height:1px;background:var(--accent);box-shadow:0 0 8px rgba(var(--accent-rgb),.42);transition:all .3s ease;transform:translateX(-50%)}
+    .nav-links a:hover,.nav-links a.active{color:var(--accent);text-shadow:0 0 12px rgba(var(--accent-rgb),.32)}
+    .nav-links a:hover::before,.nav-links a.active::before{width:100%}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--accent);transition:all .3s ease;box-shadow:0 0 4px rgba(var(--accent-rgb),.28)}
+    .mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(1,1,8,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(var(--accent-rgb),.12);z-index:999;flex-direction:column;padding:12px 0 20px}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{padding:14px 32px;font-family:var(--font-display);font-size:.68rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);border-left:2px solid transparent;transition:all .3s ease;cursor:pointer}
+    .mobile-menu a:hover,.mobile-menu a.active{color:var(--accent);border-left-color:var(--accent);background:rgba(var(--accent-rgb),.06)}
+
+    .portal-root{position:relative;width:100%;height:100vh;perspective:1800px;overflow:hidden}
+    .portal-section{position:absolute;inset:0;z-index:4;opacity:0;visibility:hidden;pointer-events:none;transform:translate3d(0,0,0) scale(1);transform-origin:center center;will-change:transform,opacity,filter;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+    .portal-section.active{opacity:1;visibility:visible;pointer-events:auto;z-index:8}
+    .portal-section::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 120%,rgba(var(--accent-rgb),.07) 0%,transparent 46%),linear-gradient(180deg,rgba(255,255,255,.01),transparent 24%);opacity:.95}
+    .destination{width:100%;height:100vh;padding-top:var(--nav-h);position:relative;overflow:hidden}
+    .section-scroll{position:relative;z-index:5;height:calc(100vh - var(--nav-h));overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;padding:48px 0 56px;overscroll-behavior:contain}
+    .container{max-width:1200px;margin:0 auto;padding:0 32px;position:relative;z-index:5}
+    .section-heading{font-family:var(--font-display);font-size:clamp(1.85rem,4vw,2.7rem);font-weight:800;letter-spacing:.08em;margin-bottom:52px;position:relative;display:inline-block}
+    .section-heading::after{content:'';position:absolute;left:0;bottom:-12px;width:58px;height:2px;background:var(--accent);box-shadow:0 0 12px rgba(var(--accent-rgb),.42),0 0 28px rgba(var(--accent-rgb),.16)}
+
+    /* About heading — neon red */
+    .neon-heading-about{color:#ff1a1a;text-shadow:0 0 8px #ff1a1a,0 0 30px rgba(255,26,26,.55),0 0 60px rgba(255,26,26,.28),0 0 100px rgba(255,26,26,.12);animation:neonAbout 2.5s ease-in-out infinite}
+    @keyframes neonAbout{
+      0%,100%{opacity:1;text-shadow:0 0 8px #ff1a1a,0 0 30px rgba(255,26,26,.55),0 0 60px rgba(255,26,26,.28),0 0 100px rgba(255,26,26,.12)}
+      8%{opacity:.82;text-shadow:0 0 4px #ff1a1a,0 0 14px rgba(255,26,26,.28)}
+      10%{opacity:1}
+      36%{opacity:.9;text-shadow:0 0 6px #ff1a1a,0 0 18px rgba(255,26,26,.38),0 0 40px rgba(255,26,26,.16)}
+      40%{opacity:1}
+      58%{opacity:.84;text-shadow:0 0 5px #ff1a1a,0 0 16px rgba(255,26,26,.3)}
+      62%{opacity:1}
+      74%{opacity:.78;text-shadow:0 0 4px #ff1a1a,0 0 12px rgba(255,26,26,.22)}
+      78%{opacity:1;text-shadow:0 0 10px #ff1a1a,0 0 34px rgba(255,26,26,.62),0 0 70px rgba(255,26,26,.3)}
+    }
+
+    /* Research heading — neon purple */
+    .neon-heading-research{color:#a855f7;text-shadow:0 0 8px #a855f7,0 0 30px rgba(168,85,247,.55),0 0 60px rgba(168,85,247,.28),0 0 100px rgba(168,85,247,.12);animation:neonResearch 2.5s ease-in-out infinite}
+    @keyframes neonResearch{
+      0%,100%{opacity:1;text-shadow:0 0 8px #a855f7,0 0 30px rgba(168,85,247,.55),0 0 60px rgba(168,85,247,.28),0 0 100px rgba(168,85,247,.12)}
+      8%{opacity:.82;text-shadow:0 0 4px #a855f7,0 0 14px rgba(168,85,247,.28)}
+      10%{opacity:1}
+      36%{opacity:.9;text-shadow:0 0 6px #a855f7,0 0 18px rgba(168,85,247,.38),0 0 40px rgba(168,85,247,.16)}
+      40%{opacity:1}
+      58%{opacity:.84;text-shadow:0 0 5px #a855f7,0 0 16px rgba(168,85,247,.3)}
+      62%{opacity:1}
+      74%{opacity:.78;text-shadow:0 0 4px #a855f7,0 0 12px rgba(168,85,247,.22)}
+      78%{opacity:1;text-shadow:0 0 10px #a855f7,0 0 34px rgba(168,85,247,.62),0 0 70px rgba(168,85,247,.3)}
+    }
+
+    /* Experience heading — neon turquoise */
+    .neon-heading-experience{color:#00cfc8;text-shadow:0 0 8px #00cfc8,0 0 30px rgba(0,207,200,.55),0 0 60px rgba(0,207,200,.28),0 0 100px rgba(0,207,200,.12);animation:neonExperience 2.5s ease-in-out infinite}
+    @keyframes neonExperience{
+      0%,100%{opacity:1;text-shadow:0 0 8px #00cfc8,0 0 30px rgba(0,207,200,.55),0 0 60px rgba(0,207,200,.28),0 0 100px rgba(0,207,200,.12)}
+      8%{opacity:.82;text-shadow:0 0 4px #00cfc8,0 0 14px rgba(0,207,200,.28)}
+      10%{opacity:1}
+      36%{opacity:.9;text-shadow:0 0 6px #00cfc8,0 0 18px rgba(0,207,200,.38),0 0 40px rgba(0,207,200,.16)}
+      40%{opacity:1}
+      58%{opacity:.84;text-shadow:0 0 5px #00cfc8,0 0 16px rgba(0,207,200,.3)}
+      62%{opacity:1}
+      74%{opacity:.78;text-shadow:0 0 4px #00cfc8,0 0 12px rgba(0,207,200,.22)}
+      78%{opacity:1;text-shadow:0 0 10px #00cfc8,0 0 34px rgba(0,207,200,.62),0 0 70px rgba(0,207,200,.3)}
+    }
+
+    /* Education heading — neon orange/amber (swapped from publications) */
+    .neon-heading-education{color:#ff6a00;text-shadow:0 0 8px #ff6a00,0 0 30px rgba(255,106,0,.55),0 0 60px rgba(255,106,0,.28),0 0 100px rgba(255,106,0,.12);animation:neonEducation 2.5s ease-in-out infinite}
+    @keyframes neonEducation{
+      0%,100%{opacity:1;text-shadow:0 0 8px #ff6a00,0 0 30px rgba(255,106,0,.55),0 0 60px rgba(255,106,0,.28),0 0 100px rgba(255,106,0,.12)}
+      8%{opacity:.82;text-shadow:0 0 4px #ff6a00,0 0 14px rgba(255,106,0,.28)}
+      10%{opacity:1}
+      36%{opacity:.9;text-shadow:0 0 6px #ff6a00,0 0 18px rgba(255,106,0,.38),0 0 40px rgba(255,106,0,.16)}
+      40%{opacity:1}
+      58%{opacity:.84;text-shadow:0 0 5px #ff6a00,0 0 16px rgba(255,106,0,.3)}
+      62%{opacity:1}
+      74%{opacity:.78;text-shadow:0 0 4px #ff6a00,0 0 12px rgba(255,106,0,.22)}
+      78%{opacity:1;text-shadow:0 0 10px #ff6a00,0 0 34px rgba(255,106,0,.62),0 0 70px rgba(255,106,0,.3)}
+    }
+
+    /* Publications heading — electric blue */
+    .neon-heading-publications{color:#0080ff;text-shadow:0 0 8px #0080ff,0 0 30px rgba(0,128,255,.55),0 0 60px rgba(0,128,255,.28),0 0 100px rgba(0,128,255,.12);animation:neonPublications 2.5s ease-in-out infinite}
+    @keyframes neonPublications{
+      0%,100%{opacity:1;text-shadow:0 0 8px #0080ff,0 0 30px rgba(0,128,255,.55),0 0 60px rgba(0,128,255,.28),0 0 100px rgba(0,128,255,.12)}
+      8%{opacity:.82;text-shadow:0 0 4px #0080ff,0 0 14px rgba(0,128,255,.28)}
+      10%{opacity:1}
+      36%{opacity:.9;text-shadow:0 0 6px #0080ff,0 0 18px rgba(0,128,255,.38),0 0 40px rgba(0,128,255,.16)}
+      40%{opacity:1}
+      58%{opacity:.84;text-shadow:0 0 5px #0080ff,0 0 16px rgba(0,128,255,.3)}
+      62%{opacity:1}
+      74%{opacity:.78;text-shadow:0 0 4px #0080ff,0 0 12px rgba(0,128,255,.22)}
+      78%{opacity:1;text-shadow:0 0 10px #0080ff,0 0 34px rgba(0,128,255,.62),0 0 70px rgba(0,128,255,.3)}
+    }
+
+    /* Contact heading — neon hot pink */
+    .neon-heading-contact{color:#ff2d78;text-shadow:0 0 8px #ff2d78,0 0 30px rgba(255,45,120,.55),0 0 60px rgba(255,45,120,.28),0 0 100px rgba(255,45,120,.12);animation:neonContact 2.5s ease-in-out infinite}
+    @keyframes neonContact{
+      0%,100%{opacity:1;text-shadow:0 0 8px #ff2d78,0 0 30px rgba(255,45,120,.55),0 0 60px rgba(255,45,120,.28),0 0 100px rgba(255,45,120,.12)}
+      8%{opacity:.82;text-shadow:0 0 4px #ff2d78,0 0 14px rgba(255,45,120,.28)}
+      10%{opacity:1}
+      36%{opacity:.9;text-shadow:0 0 6px #ff2d78,0 0 18px rgba(255,45,120,.38),0 0 40px rgba(255,45,120,.16)}
+      40%{opacity:1}
+      58%{opacity:.84;text-shadow:0 0 5px #ff2d78,0 0 16px rgba(255,45,120,.3)}
+      62%{opacity:1}
+      74%{opacity:.78;text-shadow:0 0 4px #ff2d78,0 0 12px rgba(255,45,120,.22)}
+      78%{opacity:1;text-shadow:0 0 10px #ff2d78,0 0 34px rgba(255,45,120,.62),0 0 70px rgba(255,45,120,.3)}
+    }
+
+    #hero .section-scroll{overflow:hidden;display:flex;align-items:center;padding:0}
+    .hero-beam{position:absolute;top:-30%;right:-15%;width:700px;height:1400px;background:linear-gradient(165deg,rgba(255,23,68,.14) 0%,transparent 42%);opacity:.26;transform:rotate(-12deg);pointer-events:none;animation:beamBreathe 7s ease-in-out infinite;filter:blur(2px)}
+    .hero-beam-2{position:absolute;bottom:-20%;left:-10%;width:500px;height:1000px;background:linear-gradient(15deg,rgba(255,23,68,.12) 0%,transparent 38%);opacity:.22;transform:rotate(8deg);pointer-events:none;animation:beamBreathe 9s ease-in-out infinite reverse;filter:blur(2px)}
+    @keyframes beamBreathe{0%,100%{opacity:.18}50%{opacity:.34}}
+    .hud{position:absolute;pointer-events:none;z-index:3;color:var(--accent)}
+    .hud-brackets{top:18%;left:6%;width:60px;height:60px}.hud-brackets::before,.hud-brackets::after{content:'';position:absolute}.hud-brackets::before{top:0;left:0;width:16px;height:16px;border-top:1px solid rgba(var(--accent-rgb),.26);border-left:1px solid rgba(var(--accent-rgb),.26)}.hud-brackets::after{bottom:0;right:0;width:16px;height:16px;border-bottom:1px solid rgba(var(--accent-rgb),.26);border-right:1px solid rgba(var(--accent-rgb),.26)}
+    .hud-reticle{top:35%;right:10%;width:30px;height:30px;border:1px solid rgba(var(--accent-rgb),.14);border-radius:50%;animation:reticleSpin 15s linear infinite}.hud-reticle::before{content:'';position:absolute;top:50%;left:-8px;right:-8px;height:1px;background:rgba(var(--accent-rgb),.08)}.hud-reticle::after{content:'';position:absolute;left:50%;top:-8px;bottom:-8px;width:1px;background:rgba(var(--accent-rgb),.08)}
+    .hud-data{bottom:18%;right:6%;font-family:var(--font-mono);font-size:.55rem;color:var(--accent);letter-spacing:.15em;writing-mode:vertical-rl;animation:hudFlicker 5s ease-in-out infinite;text-shadow:0 0 10px rgba(var(--accent-rgb),.22)}
+    .hud-hex{bottom:30%;left:8%;width:50px;height:50px;opacity:.16;animation:reticleSpin 25s linear infinite reverse}
+    @keyframes reticleSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+    @keyframes hudFlicker{0%,100%{opacity:1}48%{opacity:1}50%{opacity:.22}52%{opacity:1}80%{opacity:1}82%{opacity:.34}84%{opacity:1}}
+    .hero-content{position:relative;z-index:10;max-width:900px;padding:0}
+    .hero-name{font-family:var(--font-display);font-size:clamp(2.8rem,7.8vw,5.8rem);font-weight:900;line-height:.95;letter-spacing:.04em;margin-bottom:28px;position:relative;display:inline-block;cursor:default}
+   .hero-main{color:var(--white)}
+.hero-agni{
+  color:#ff1a1a;
+  text-shadow:
+    0 0 8px #ff1a1a,
+    0 0 30px rgba(255,26,26,.55),
+    0 0 60px rgba(255,26,26,.28),
+    0 0 100px rgba(255,26,26,.12);
+  animation:neonFlickerStrong 2.5s ease-in-out infinite;
+}
+
+    .hero-status{font-family:var(--font-mono);font-size:.95rem;color:var(--white);letter-spacing:.22em;margin-bottom:32px;display:flex;align-items:center;gap:10px;text-shadow:0 0 10px rgba(255,23,68,.18);text-transform:uppercase}
+    .status-dot{display:inline-block;width:6px;height:6px;background:var(--hero);border-radius:50%;box-shadow:0 0 6px rgba(255,23,68,.45);animation:beacon 1.5s step-end infinite}
+    .hero-quote{position:relative;padding:16px 0 16px 24px;max-width:520px;margin-bottom:44px;font-family:var(--font-body);font-size:.95rem;color:var(--white);font-style:italic;line-height:1.7}
+    .hero-quote::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--hero),transparent);box-shadow:0 0 10px rgba(255,23,68,.22)}
+    .hero-quote cite{display:block;margin-top:8px;font-style:normal;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--hero)}
+    .link-bar{display:flex;gap:10px;flex-wrap:wrap}.link-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-family:var(--font-display);font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);background:rgba(var(--accent-rgb),.05);border:1.5px solid var(--accent);transition:all .4s ease;position:relative;overflow:hidden;box-shadow:0 0 15px rgba(var(--accent-rgb),.25),0 0 40px rgba(var(--accent-rgb),.1);text-shadow:0 0 8px rgba(var(--accent-rgb),.5)}.link-btn:hover{background:var(--accent);color:#0a0a0c;box-shadow:0 0 10px var(--accent),0 0 40px rgba(var(--accent-rgb),.5),0 0 80px rgba(var(--accent-rgb),.25);text-shadow:none}.link-btn svg{opacity:.85;filter:drop-shadow(0 0 4px rgba(var(--accent-rgb),.4))}.link-btn:hover svg{opacity:1;filter:none}
+    .about-grid{display:grid;grid-template-columns:260px 1fr;gap:64px;align-items:start}.profile-frame{position:relative;width:240px;height:240px;margin:0 auto}.profile-ring{position:absolute;inset:-16px;border:1px solid var(--accent);clip-path:polygon(30% 0%,70% 0%,100% 30%,100% 70%,70% 100%,30% 100%,0% 70%,0% 30%);animation:reticleSpin 20s linear infinite;box-shadow:0 0 14px rgba(var(--accent-rgb),.34)}.profile-ring-2{position:absolute;inset:-24px;border:1px solid rgba(var(--accent-rgb),.24);clip-path:polygon(30% 0%,70% 0%,100% 30%,100% 70%,70% 100%,30% 100%,0% 70%,0% 30%);animation:reticleSpin 30s linear infinite reverse}.profile-glow{position:absolute;inset:-30px;background:radial-gradient(circle,rgba(var(--accent-rgb),.24) 0%,transparent 65%);animation:glowPulse 3s ease-in-out infinite;z-index:-1}@keyframes glowPulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.8;transform:scale(1.05)}}.profile-img{width:240px;height:240px;object-fit:cover;clip-path:polygon(15% 0%,85% 0%,100% 15%,100% 85%,85% 100%,15% 100%,0% 85%,0% 15%);background:var(--panel)}.profile-corner{position:absolute;width:12px;height:12px}.profile-corner.tl{top:-4px;left:-4px;border-top:2px solid var(--accent);border-left:2px solid var(--accent)}.profile-corner.tr{top:-4px;right:-4px;border-top:2px solid var(--accent);border-right:2px solid var(--accent)}.profile-corner.bl{bottom:-4px;left:-4px;border-bottom:2px solid var(--accent);border-left:2px solid var(--accent)}.profile-corner.br{bottom:-4px;right:-4px;border-bottom:2px solid var(--accent);border-right:2px solid var(--accent)}.about-text p{font-size:1rem;color:var(--grey);margin-bottom:20px;line-height:1.85}.about-text a,.tl-desc a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(var(--accent-rgb),.28);transition:text-decoration-color .3s ease,color .3s ease}.about-text a:hover,.tl-desc a:hover{text-decoration-color:var(--accent)}
+    .research-text{max-width:800px}.research-text p.research-area{font-size:1rem;color:var(--grey);margin-bottom:24px;line-height:1.85}.research-text strong{font-family:var(--font-display);font-size:.88rem;font-weight:700;letter-spacing:.04em;color:var(--white)}
+    .timeline{position:relative;padding-left:36px}.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--accent),rgba(var(--accent-rgb),.18) 60%,transparent);box-shadow:0 0 6px rgba(var(--accent-rgb),.14)}.tl-item{position:relative;margin-bottom:48px;padding-left:28px}.tl-item:last-child{margin-bottom:0}.tl-item::before{content:'';position:absolute;left:-41px;top:6px;width:10px;height:10px;background:var(--accent);transform:rotate(45deg);box-shadow:0 0 12px rgba(var(--accent-rgb),.42),0 0 24px rgba(var(--accent-rgb),.14)}.tl-item::after{content:'';position:absolute;left:-31px;top:10px;width:28px;height:1px;background:linear-gradient(90deg,rgba(var(--accent-rgb),.18),transparent)}.tl-date{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;text-shadow:0 0 8px rgba(var(--accent-rgb),.18)}.tl-title{font-family:var(--font-display);font-size:.92rem;font-weight:700;letter-spacing:.05em;color:var(--white);margin-bottom:4px}.tl-org{font-size:.92rem;font-weight:500;color:var(--grey);margin-bottom:10px}.tl-desc{font-size:.9rem;color:var(--grey-dim);line-height:1.7}
+    .publication-stream{display:flex;flex-direction:column;gap:20px}.publication-stream article{padding:10px 0 16px;border-bottom:1px solid rgba(var(--accent-rgb),.16)}.publication-stream article:last-child{border-bottom:none}.pub-title{font-weight:700;font-size:1.05rem;color:var(--white);line-height:1.55;margin-bottom:6px}.pub-authors{font-size:.86rem;color:var(--grey-dim);margin-bottom:5px}.pub-venue{font-size:.86rem;color:var(--grey);font-style:italic;margin-bottom:10px}.pub-links{display:flex;gap:8px;flex-wrap:wrap}.pub-link{font-family:var(--font-display);font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border:1.5px solid var(--accent);padding:6px 18px;transition:all .4s ease;background:rgba(var(--accent-rgb),.05);box-shadow:0 0 12px rgba(var(--accent-rgb),.2),0 0 30px rgba(var(--accent-rgb),.08);text-shadow:0 0 6px rgba(var(--accent-rgb),.4)}.pub-link:hover{background:var(--accent);color:#0a0a0c;box-shadow:0 0 10px var(--accent),0 0 40px rgba(var(--accent-rgb),.45);text-shadow:none}
+    .contact-inner{position:relative;z-index:5;max-width:720px}.contact-inner p{font-size:1.05rem;color:var(--grey);line-height:1.85;margin-bottom:26px}.contact-links{display:flex;gap:10px;flex-wrap:wrap}
+    .reveal{opacity:0;transform:translateY(40px) scale(.97);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}.reveal.visible{opacity:1;transform:translateY(0) scale(1)}.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}
+    footer{background:transparent;border-top:1px solid rgba(var(--accent-rgb),.14);padding:28px 0;text-align:center;position:relative;z-index:5}.footer-note{font-family:var(--font-mono);font-size:.68rem;color:var(--grey-dim);letter-spacing:.1em}
+
+    @media(max-width:900px){.nav-links{display:none}.hamburger{display:flex}.about-grid{grid-template-columns:1fr;gap:40px}.profile-frame{margin:0 auto}.section-scroll{padding:36px 0 48px}.portal-root{perspective:1200px}}
+    @media(max-width:600px){.container{padding:0 20px}.link-bar,.contact-links{gap:6px}.link-btn{padding:8px 12px;font-size:.55rem}.section-heading{font-size:clamp(1.55rem,8vw,2.2rem)}.gateway-name{font-size:clamp(2rem,11vw,4rem)}.gateway-status{font-size:.64rem;letter-spacing:.18em}.gateway-enter{min-width:150px;padding:12px 22px}}
   </style>
 </head>
-
 <body>
-
-  <audio id="bgmusic" autoplay loop>
+  <audio id="bgmusic" loop>
     <source src="agni_theme.mp3" type="audio/mpeg">
   </audio>
-  
+
   <canvas id="bg-canvas" aria-hidden="true"></canvas>
   <div class="overlay-scanlines" aria-hidden="true"></div>
   <div class="overlay-vignette" aria-hidden="true"></div>
+  <div class="section-atmosphere" aria-hidden="true"></div>
+  <div id="portal-burst" aria-hidden="true"></div>
 
-  <nav id="nav" role="navigation" aria-label="Main navigation">
-    <a href="#hero" class="nav-logo" aria-label="Agnideep Aich — Home">
-      <span class="beacon"></span>
-      <span class="dim">&lt;</span>A&sup2;<span class="dim">/&gt;</span>
-    </a>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="#about" class="nav-link">About</a></li>
-      <li><a href="#research" class="nav-link">Research</a></li>
-      <li><a href="#experience" class="nav-link">Experience</a></li>
-      <li><a href="#education" class="nav-link">Education</a></li>
-      <li><a href="#publications" class="nav-link">Publications</a></li>
-      <li><a href="#contact" class="nav-link">Contact</a></li>
-    </ul>
-    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-
-  <div class="mobile-menu" id="mobile-menu" role="menu">
-    <a href="#about" role="menuitem">About</a>
-    <a href="#research" role="menuitem">Research</a>
-    <a href="#experience" role="menuitem">Experience</a>
-    <a href="#education" role="menuitem">Education</a>
-    <a href="#publications" role="menuitem">Publications</a>
-    <a href="#contact" role="menuitem">Contact</a>
+  <div class="gateway" id="gateway">
+  <div class="gateway-particles" id="gateway-particles"></div>
+  <div class="gateway-inner gateway-content">
+    <div class="gateway-name">
+      AGNIDEEP<br>"<span class="agni">AGNI</span>" AICH
+    </div>
+    <div class="gateway-status">Postdoctoral Researcher at Stanford University</div>
+    <blockquote class="gateway-quote">
+      "To truly laugh, you must be able to take your pain, and play with it."
+      <cite>— Charlie Chaplin</cite>
+    </blockquote>
+    <button class="gateway-enter" id="gw-enter-btn">Enter</button>
   </div>
+</div>
 
-  <section id="hero" aria-label="Introduction">
-    <div class="hero-beam" aria-hidden="true"></div>
-    <div class="hero-beam-2" aria-hidden="true"></div>
-    <div class="hud hud-brackets" aria-hidden="true"></div>
-    <div class="hud hud-reticle" aria-hidden="true"></div>
-    <div class="hud hud-data" aria-hidden="true">IT'S AGNI TIME</div>
-    <div class="hud hud-hex" aria-hidden="true">
-      <svg viewBox="0 0 50 50" fill="none" stroke="rgba(229,0,37,0.15)" stroke-width="0.5">
-        <polygon points="25,2 47,14 47,36 25,48 3,36 3,14"/>
-        <polygon points="25,10 39,18 39,32 25,42 11,32 11,18"/>
-      </svg>
-    </div>
-
-    <div class="container">
-      <div class="hero-content">
-        <h1 class="hero-name hero-anim">AGNIDEEP “AGNI” AICH</h1>
-        <div class="hero-status hero-anim ha-d2">
-          <span class="status-dot"></span> Postdoctoral Researcher at Stanford University
-        </div>
-        <blockquote class="hero-quote hero-anim ha-d3">
-          "To truly laugh, you must be able to take your pain, and play with it."
-          <cite>— Charlie Chaplin</cite>
-        </blockquote>
-        <div class="link-bar hero-anim ha-d4" role="list">
-          <a href="mailto:agnideep.aich1@louisiana.edu" class="link-btn" role="listitem" aria-label="Email">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-            <span>Email</span>
-          </a>
-          <a href="https://linkedin.com/in/agnideep-aich" class="link-btn" role="listitem" aria-label="LinkedIn" target="_blank" rel="noopener">
-            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-            <span>LinkedIn</span>
-          </a>
-          <a href="https://scholar.google.com/citations?user=U2uZyIwAAAAJ" class="link-btn" role="listitem" aria-label="Google Scholar" target="_blank" rel="noopener">
-            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18V17c0 2.21 4.03 4 9 4s9-1.79 9-4v-5.82L20 9.18V15h2V9L12 3zm6.93 6L12 12.72 5.07 9 12 5.28 18.93 9z"/></svg>
-            <span>Scholar</span>
-          </a>
-          <a href="https://drive.google.com/file/d/1kJLAqgO3IU8zWtZcW3h4PJxIi_UoSnpC/view" class="link-btn" role="listitem" aria-label="Curriculum Vitae" target="_blank" rel="noopener">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-            <span>CV</span>
-          </a>
-          <a href="https://github.com/agnivibes" class="link-btn" role="listitem" aria-label="GitHub" target="_blank" rel="noopener">
-            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-            <span>GitHub</span>
-          </a>
-          <a href="https://instagram.com/agni_vibes" class="link-btn" role="listitem" aria-label="Instagram" target="_blank" rel="noopener">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            <span>Instagram</span>
-          </a>
-        </div>
+  <div class="site-shell" id="site-shell">
+    <nav id="nav" role="navigation" aria-label="Main navigation">
+      <button class="nav-logo" id="nav-logo-btn" aria-label="Return to gateway">
+        <span class="beacon"></span>
+        <span class="logo-a">AGNI</span><span class="logo-rest">VERSE</span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a data-dest="about">About</a>
+        <a data-dest="research">Research</a>
+        <a data-dest="experience">Experience</a>
+        <a data-dest="education">Education</a>
+        <a data-dest="publications">Publications</a>
+        <a data-dest="contact">Contact</a>
       </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </nav>
+
+    <div class="mobile-menu" id="mobile-menu" role="menu">
+      <a data-dest="about" role="menuitem">About</a>
+      <a data-dest="research" role="menuitem">Research</a>
+      <a data-dest="experience" role="menuitem">Experience</a>
+      <a data-dest="education" role="menuitem">Education</a>
+      <a data-dest="publications" role="menuitem">Publications</a>
+      <a data-dest="contact" role="menuitem">Contact</a>
     </div>
-  </section>
 
-  <div class="energy-divider" aria-hidden="true"></div>
-
-  <section id="about" aria-labelledby="about-heading">
-    <div class="container">
-      <div class="section-tag">About</div>
-      <h2 class="section-heading" id="about-heading">My Story</h2>
-      <div class="about-grid">
-        <div class="reveal">
-          <div class="profile-frame">
-            <div class="profile-ring" aria-hidden="true"></div>
-            <div class="profile-glow" aria-hidden="true"></div>
-            <div class="profile-corner tl" aria-hidden="true"></div>
-            <div class="profile-corner tr" aria-hidden="true"></div>
-            <div class="profile-corner bl" aria-hidden="true"></div>
-            <div class="profile-corner br" aria-hidden="true"></div>
-            <img src="profile.jpg" alt="Agnideep Aich" class="profile-img" />
+    <div class="portal-root" id="portal-root">
+      <section class="portal-section active" id="about-section" data-section="about" data-color="#ff1744" data-rgb="255,23,68">
+        <div class="destination dest-about">
+          <div class="section-scroll">
+            <div class="container">
+              <h2 class="section-heading neon-heading-about">About</h2>
+              <div class="about-grid">
+                <div class="reveal">
+                  <div class="profile-frame">
+                    <div class="profile-ring"></div>
+                    <div class="profile-ring-2"></div>
+                    <div class="profile-glow"></div>
+                    <div class="profile-corner tl"></div>
+                    <div class="profile-corner tr"></div>
+                    <div class="profile-corner bl"></div>
+                    <div class="profile-corner br"></div>
+                    <img src="profile.jpg" alt="Agnideep Aich" class="profile-img" />
+                  </div>
+                </div>
+                <div class="about-text reveal reveal-d1">
+                  <p>I am a postdoctoral researcher at Stanford University, working in the HEAL Lab within the Department of Emergency Medicine at the Stanford University School of Medicine under the mentorship of <a href="https://profiles.stanford.edu/christian-rose" target="_blank" rel="noopener">Dr. Christian Rose</a>. My work focuses on data science research at the intersection of statistical and machine learning methods, with an emphasis on analyzing clinical workflows, AI implementation in healthcare, and human-centered outcomes. Previously, I completed my Ph.D. in Statistical Machine Learning at the University of Louisiana at Lafayette under <a href="https://math.louisiana.edu/node/298" target="_blank" rel="noopener">Dr. Bruce Wade</a>.</p>
+                  <p>Outside the lab, I live loudly. I collect sunglasses and colognes, spend too much time thinking about fragrances, and I am an Arsenal fan. I also enjoy cars, EDM (especially trance, future bass, and synthwave), and I'm a huge MMA fan. Also, I love eating, and if I see a Raising Cane's, my heart starts beating a little faster.</p>
+                  <div class="link-bar reveal reveal-d2">
+                    <a href="https://scholar.google.com/citations?user=U2uZyIwAAAAJ" class="link-btn" target="_blank" rel="noopener" aria-label="Google Scholar">
+                      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18V17c0 2.21 4.03 4 9 4s9-1.79 9-4v-5.82L20 9.18V15h2V9L12 3zm6.93 6L12 12.72 5.07 9 12 5.28 18.93 9z"/></svg>
+                      <span>Scholar</span>
+                    </a>
+                    <a href="https://linkedin.com/in/agnideep-aich" class="link-btn" target="_blank" rel="noopener" aria-label="LinkedIn">
+                      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                      <span>LinkedIn</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1kJLAqgO3IU8zWtZcW3h4PJxIi_UoSnpC/view" class="link-btn" target="_blank" rel="noopener" aria-label="CV">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                      <span>CV</span>
+                    </a>
+                    <a href="https://github.com/agnivibes" class="link-btn" target="_blank" rel="noopener" aria-label="GitHub">
+                      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                      <span>GitHub</span>
+                    </a>
+                    <a href="https://instagram.com/agni_vibes" class="link-btn" target="_blank" rel="noopener" aria-label="Instagram">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                      <span>Instagram</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="about-text reveal reveal-d1">
-         <p>I am a postdoctoral researcher at Stanford University, working in the HEAL Lab within the Department of Emergency Medicine at the Stanford University School of Medicine under the mentorship of <a href="https://profiles.stanford.edu/christian-rose" target="_blank" rel="noopener">Dr. Christian Rose</a>. My work focuses on data science research at the intersection of statistical and machine learning methods, with an emphasis on analyzing clinical workflows, AI implementation in healthcare, and human-centered outcomes. Previously, I completed my Ph.D. in Statistical Machine Learning at the University of Louisiana at Lafayette under <a href="https://math.louisiana.edu/node/298" target="_blank" rel="noopener">Dr. Bruce Wade</a>.</p>
+      </section>
 
-<p>Outside the lab, I live loudly. I collect sunglasses and colognes, spend too much time thinking about fragrances, and I am an Arsenal fan. I also enjoy cars, EDM (especially trance, future bass, and synthwave), and I’m a huge MMA fan. Also, I love eating, and if I see a Raising Cane’s, my heart starts beating a little faster.</p>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="energy-divider" aria-hidden="true"></div>
-
-  <section id="research" aria-labelledby="research-heading">
-    <div class="container">
-      <div class="section-tag">Focus Areas</div>
-      <h2 class="section-heading" id="research-heading">Research Interests</h2>
-      <div class="research-grid">
-        <div class="research-card reveal">
-          <h3 class="card-title">Statistical Machine Learning</h3>
-          <p class="card-desc">I combine ideas from statistics and machine learning to develop principled methods for complex data. My primary interest lies in applied methodological work, where theory informs practical modeling decisions. At the same time, I engage with foundational questions in statistical learning, including theoretical development when needed to better understand model behavior and reliability.</p>
-        </div>
-        <div class="research-card reveal reveal-d1">
-          <h3 class="card-title">Copulas</h3>
-          <p class="card-desc">I use copulas to model non-Gaussian dependence structures, with particular emphasis on tail behavior and joint extremes. This perspective is especially useful in high-risk settings, where rare but consequential events can dominate outcomes. Many biomedical and population health datasets exhibit dependence patterns that are not well captured by average association alone. My work leverages copula-based methods to model these tail-driven relationships and to develop dependence-aware learning tools for complex health data.</p>
-        </div>
-        <div class="research-card reveal reveal-d2">
-          <h3 class="card-title">Predictive Modeling</h3>
-          <p class="card-desc">Predictive modeling is a central component of my research, particularly in biomedical and population health settings. I design models that account for feature dependence, heterogeneity, and real-world data complexity, with the goal of producing reliable and interpretable predictions in large-scale clinical and public health datasets.</p>
-        </div>
-        <div class="research-card reveal reveal-d3">
-          <h3 class="card-title">Population Health</h3>
-          <p class="card-desc">I work with population health datasets that include cross-sectional surveys and irregular longitudinal measurements. These settings often involve dependence, missingness, and heterogeneity, and my methods are designed with those realities in mind.</p>
-        </div>
-        <div class="research-card reveal reveal-d4">
-          <h3 class="card-title">AI in Healthcare</h3>
-          <p class="card-desc">I am interested in turning AI methods into tools that are reliable for healthcare settings. My focus is on developing models that respect dependence structure in the data and produce predictions that remain stable across diverse patient populations and real-world conditions.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="energy-divider" aria-hidden="true"></div>
-
-  <section id="experience" aria-labelledby="experience-heading">
-    <div class="container">
-      <div class="section-tag">Experience</div>
-      <h2 class="section-heading" id="experience-heading">Work Experience</h2>
-      <div class="timeline">
-        <div class="tl-item reveal">
-          <p class="tl-date">August 2025 – December 2025</p>
-          <h3 class="tl-title">Statistical and Data Science Research Assistant</h3>
-          <p class="tl-org">University of Louisiana at Lafayette</p>
-          <p class="tl-desc">I analyzed public health datasets using statistical modeling, machine learning, and data visualization under <a href="https://foundations.louisiana.edu/node/165" target="_blank" rel="noopener">Dr. Amanda Mayeaux</a>. I also collaborated across public health, education, and kinesiology to frame research questions and design analyses, contributing to manuscripts in preparation.</p>
-        </div>
-        <div class="tl-item reveal reveal-d1">
-          <p class="tl-date">August 2024 – May 2025</p>
-          <h3 class="tl-title">Research Assistant</h3>
-          <p class="tl-org">Statistical Consulting Center, University of Louisiana at Lafayette</p>
-          <p class="tl-desc">I provided statistical consulting, data analysis, and data visualization support to PhD students, faculty, and other clients. I also collaborated closely with researchers to translate study objectives into statistical questions and deliver robust, actionable solutions.</p>
-        </div>
-        <div class="tl-item reveal reveal-d2">
-          <p class="tl-date">August 2020 – May 2024</p>
-          <h3 class="tl-title">Instructor of Record</h3>
-          <p class="tl-org">University of Louisiana at Lafayette</p>
-          <p class="tl-desc">I taught two sections each semester of Elementary Statistics (STAT 214) and Applied College Algebra (MATH 105). I also developed course materials including lectures, assignments, and exams, and received strong student feedback for clear communication and engagement.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="energy-divider" aria-hidden="true"></div>
-
-  <section id="education" aria-labelledby="education-heading">
-    <div class="container">
-      <div class="section-tag">Education</div>
-      <h2 class="section-heading" id="education-heading">Education</h2>
-      <div class="timeline">
-        <div class="tl-item reveal">
-          <p class="tl-date">2021 – May 2026 (Anticipated)</p>
-          <h3 class="tl-title">Ph.D. in Statistical Machine Learning</h3>
-          <p class="tl-org">University of Louisiana at Lafayette</p>
-          <p class="tl-desc">Dissertation: Learning from Extremes: A Copula-Based Feature Selection Framework for Machine Learning-Driven Risk Prediction.</p>
-        </div>
-        <div class="tl-item reveal reveal-d1">
-          <p class="tl-date">2019 – 2021</p>
-          <h3 class="tl-title">M.S. in Mathematics</h3>
-          <p class="tl-org">University of Louisiana at Lafayette</p>
-        </div>
-        <div class="tl-item reveal reveal-d2">
-          <p class="tl-date">2016 – 2018</p>
-          <h3 class="tl-title">M.S. in Statistics</h3>
-          <p class="tl-org">University of Calcutta, India</p>
-        </div>
-        <div class="tl-item reveal reveal-d3">
-          <p class="tl-date">2013 – 2016</p>
-          <h3 class="tl-title">B.S. in Statistics</h3>
-          <p class="tl-org">Asutosh College, India</p>
-          <p class="tl-desc">Minors: Mathematics &amp; Computer Science.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="energy-divider" aria-hidden="true"></div>
-
-  <section id="publications" aria-labelledby="publications-heading">
-    <div class="container">
-      <div class="section-tag">Scholarly Work</div>
-      <h2 class="section-heading" id="publications-heading">Recent Publications</h2>
-      <div class="pub-list">
-        <article class="pub-item reveal">
-          <p class="pub-year">2026</p>
-          <h3 class="pub-title">A Copula Based Supervised Filter for Feature Selection in Machine Learning Driven Diabetes Risk Prediction</h3>
-          <p class="pub-authors">Agnideep Aich, Md. Monzur Murshed, Sameera Hewage, Amanda Mayeaux</p>
-          <p class="pub-venue">Published in Scientific Reports</p>
-          <div class="pub-links">
-            <a href="https://doi.org/10.1038/s41598-026-41874-9" class="pub-link" target="_blank" rel="noopener">DOI</a>
+      <section class="portal-section" id="research-section" data-section="research" data-color="#a855f7" data-rgb="168,85,247">
+        <div class="destination dest-research">
+          <div class="section-scroll">
+            <div class="container">
+              <h2 class="section-heading neon-heading-research">Research Interests</h2>
+              <div class="research-text reveal reveal-d1">
+                <p class="research-area"><strong>Statistical Machine Learning</strong> — I combine ideas from statistics and machine learning to develop principled methods for complex data. My primary interest lies in applied methodological work, where theory informs practical modeling decisions. At the same time, I engage with foundational questions in statistical learning, including theoretical development when needed to better understand model behavior and reliability.</p>
+                <p class="research-area"><strong>Copulas</strong> — I use copulas to model non-Gaussian dependence structures, with particular emphasis on tail behavior and joint extremes. This perspective is especially useful in high-risk settings, where rare but consequential events can dominate outcomes. Many biomedical and population health datasets exhibit dependence patterns that are not well captured by average association alone. My work leverages copula-based methods to model these tail-driven relationships and to develop dependence-aware learning tools for complex health data.</p>
+                <p class="research-area"><strong>Predictive Modeling</strong> — Predictive modeling is a central component of my research, particularly in biomedical and population health settings. I design models that account for feature dependence, heterogeneity, and real-world data complexity, with the goal of producing reliable and interpretable predictions in large-scale clinical and public health datasets.</p>
+                <p class="research-area"><strong>Population Health</strong> — I work with population health datasets that include cross-sectional surveys and irregular longitudinal measurements. These settings often involve dependence, missingness, and heterogeneity, and my methods are designed with those realities in mind.</p>
+                <p class="research-area"><strong>AI in Healthcare</strong> — I am interested in turning AI methods into tools that are reliable for healthcare settings. My focus is on developing models that respect dependence structure in the data and produce predictions that remain stable across diverse patient populations and real-world conditions.</p>
+              </div>
+              </div>
+            </div>
           </div>
-        </article>
-        <article class="pub-item reveal reveal-d1">
-          <p class="pub-year">2026</p>
-          <h3 class="pub-title">The Minimax Lower Bound of Kernel Stein Discrepancy Estimation</h3>
-          <p class="pub-authors">J. Cribeiro-Ramallo, Agnideep Aich, F. Kalinke, Ashit Baran Aich, Zoltán Szabó</p>
-          <p class="pub-venue">Accepted at AISTATS 2026</p>
-          <div class="pub-links">
-            <a href="https://doi.org/10.48550/arXiv.2510.15058" class="pub-link" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </section>
+
+      <section class="portal-section" id="experience-section" data-section="experience" data-color="#00cfc8" data-rgb="0,207,200">
+        <div class="destination dest-experience">
+          <div class="section-scroll">
+            <div class="container">
+              <h2 class="section-heading neon-heading-experience">Experience</h2>
+              <div class="timeline">
+                <div class="tl-item reveal">
+                  <p class="tl-date">July 2026 – Present</p>
+                  <h3 class="tl-title">Postdoctoral Researcher</h3>
+                  <p class="tl-org">Stanford University</p>
+                </div>
+                <div class="tl-item reveal reveal-d1">
+                  <p class="tl-date">August 2025 – December 2025</p>
+                  <h3 class="tl-title">Statistical and Data Science Research Assistant</h3>
+                  <p class="tl-org">University of Louisiana at Lafayette</p>
+                  <p class="tl-desc">I analyzed public health datasets using statistical modeling, machine learning, and data visualization under <a href="https://foundations.louisiana.edu/node/165" target="_blank" rel="noopener">Dr. Amanda Mayeaux</a>. I also collaborated across public health, education, and kinesiology to frame research questions and design analyses, contributing to manuscripts in preparation.</p>
+                </div>
+                <div class="tl-item reveal reveal-d2">
+                  <p class="tl-date">August 2024 – May 2025</p>
+                  <h3 class="tl-title">Research Assistant</h3>
+                  <p class="tl-org">Statistical Consulting Center, University of Louisiana at Lafayette</p>
+                  <p class="tl-desc">I provided statistical consulting, data analysis, and data visualization support to PhD students, faculty, and other clients. I also collaborated closely with researchers to translate study objectives into statistical questions and deliver robust, actionable solutions.</p>
+                </div>
+                <div class="tl-item reveal reveal-d3">
+                  <p class="tl-date">August 2020 – May 2024</p>
+                  <h3 class="tl-title">Instructor of Record</h3>
+                  <p class="tl-org">University of Louisiana at Lafayette</p>
+                  <p class="tl-desc">I taught two sections each semester of Elementary Statistics (STAT 214) and Applied College Algebra (MATH 105). I also developed course materials including lectures, assignments, and exams, and received strong student feedback for clear communication and engagement.</p>
+                </div>
+              </div>
+            </div>
           </div>
-        </article>
-        <article class="pub-item reveal reveal-d2">
-          <p class="pub-year">2026</p>
-          <h3 class="pub-title">Bayesian Inference for Joint Tail Risk in Paired Biomarkers via Archimedean Copulas with Restricted Jeffreys Priors</h3>
-          <p class="pub-authors">Agnideep Aich, Md. Monzur Murshed, Sameera Hewage, Ashit Baran Aich</p>
-          <p class="pub-venue">Preprint</p>
-          <div class="pub-links">
-            <a href="https://doi.org/10.48550/arXiv.2602.15319" class="pub-link" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </section>
+
+      <section class="portal-section" id="education-section" data-section="education" data-color="#ff6a00" data-rgb="255,106,0">
+        <div class="destination dest-education">
+          <div class="section-scroll">
+            <div class="container">
+              <h2 class="section-heading neon-heading-education">Education</h2>
+              <div class="timeline">
+                <div class="tl-item reveal">
+                  <p class="tl-date">2021 – May 2026 (Anticipated)</p>
+                  <h3 class="tl-title">Ph.D. in Statistical Machine Learning</h3>
+                  <p class="tl-org">University of Louisiana at Lafayette</p>
+                  <p class="tl-desc">Dissertation: Learning from Extremes: A Copula-Based Feature Selection Framework for Machine Learning-Driven Risk Prediction.</p>
+                </div>
+                <div class="tl-item reveal reveal-d1">
+                  <p class="tl-date">2019 – 2021</p>
+                  <h3 class="tl-title">M.S. in Mathematics</h3>
+                  <p class="tl-org">University of Louisiana at Lafayette</p>
+                </div>
+                <div class="tl-item reveal reveal-d2">
+                  <p class="tl-date">2016 – 2018</p>
+                  <h3 class="tl-title">M.S. in Statistics</h3>
+                  <p class="tl-org">University of Calcutta, India</p>
+                </div>
+                <div class="tl-item reveal reveal-d3">
+                  <p class="tl-date">2013 – 2016</p>
+                  <h3 class="tl-title">B.S. in Statistics</h3>
+                  <p class="tl-org">Asutosh College, India</p>
+                  <p class="tl-desc">Minors: Mathematics &amp; Computer Science.</p>
+                </div>
+              </div>
+            </div>
           </div>
-        </article>
-      </div>
-    </div>
-  </section>
+        </div>
+      </section>
 
-  <div class="energy-divider" aria-hidden="true"></div>
+      <section class="portal-section" id="publications-section" data-section="publications" data-color="#0080ff" data-rgb="0,128,255">
+        <div class="destination dest-publications">
+          <div class="section-scroll">
+            <div class="container">
+              <h2 class="section-heading neon-heading-publications">Publications</h2>
+              <p class="reveal pub-intro" style="font-size:1rem;color:var(--grey);line-height:1.85;margin-bottom:32px;max-width:800px">Selected recent publications are listed below. A complete list can be found via Google Scholar.</p>
+              <div class="publication-stream">
+                <article class="reveal">
+                  <h3 class="pub-title">A Copula Based Supervised Filter for Feature Selection in Machine Learning Driven Diabetes Risk Prediction</h3>
+                  <p class="pub-authors">Agnideep Aich, Md. Monzur Murshed, Sameera Hewage, Amanda Mayeaux</p>
+                  <p class="pub-venue">Published in Scientific Reports</p>
+                  <div class="pub-links"><a href="https://doi.org/10.1038/s41598-026-41874-9" class="pub-link" target="_blank" rel="noopener">DOI</a></div>
+                </article>
+                <article class="reveal reveal-d1">
+                  <h3 class="pub-title">The Minimax Lower Bound of Kernel Stein Discrepancy Estimation</h3>
+                  <p class="pub-authors">J. Cribeiro-Ramallo, Agnideep Aich, F. Kalinke, Ashit Baran Aich, Zoltán Szabó</p>
+                  <p class="pub-venue">Accepted at AISTATS 2026</p>
+                  <div class="pub-links"><a href="https://doi.org/10.48550/arXiv.2510.15058" class="pub-link" target="_blank" rel="noopener">DOI</a></div>
+                </article>
+                <article class="reveal reveal-d2">
+                  <h3 class="pub-title">Bayesian Inference for Joint Tail Risk in Paired Biomarkers via Archimedean Copulas with Restricted Jeffreys Priors</h3>
+                  <p class="pub-authors">Agnideep Aich, Md. Monzur Murshed, Sameera Hewage, Ashit Baran Aich</p>
+                  <p class="pub-venue">Preprint</p>
+                  <div class="pub-links"><a href="https://doi.org/10.48550/arXiv.2602.15319" class="pub-link" target="_blank" rel="noopener">DOI</a></div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  <section id="contact" aria-labelledby="contact-heading">
-    <div class="container">
-      <div class="contact-inner">
-        <div class="section-tag">Get In Touch</div>
-        <h2 class="section-heading reveal" id="contact-heading">Contact</h2>
-        <p class="reveal reveal-d1">I'm always open to research collaborations, academic discussions, or just a good conversation. If you want to talk statistics, machine learning, or life outside research, reach out. Email me, or DM me on Instagram. I always respond!!</p>
-      </div>
+      <section class="portal-section" id="contact-section" data-section="contact" data-color="#ff2d78" data-rgb="255,45,120">
+        <div class="destination dest-contact">
+          <div class="section-scroll">
+            <div class="container">
+              <div class="contact-inner">
+                <h2 class="section-heading neon-heading-contact">Contact</h2>
+                <p class="reveal reveal-d1">I'm always open to research collaborations, academic discussions, or just a good conversation. If you want to talk statistics, machine learning, or life outside research, reach out. I always respond!!</p>
+                <div class="contact-links reveal reveal-d2">
+                  <a href="mailto:agnideep.aich1@louisiana.edu" class="link-btn" aria-label="Email">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+                    <span>Email</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-  </section>
-
-  <footer role="contentinfo">
-    <div class="container">
-      <p>&copy; <span id="year"></span> Agnideep Aich</p>
-    </div>
-  </footer>
+  </div>
 
   <script>
     'use strict';
-
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-const music = document.getElementById("bgmusic");
-music.volume = 0.2;
-
-function startMusic() {
-  music.play().then(() => {
-    document.removeEventListener("click", startMusic);
-    document.removeEventListener("scroll", startMusic);
-    document.removeEventListener("mousemove", startMusic);
-    document.removeEventListener("touchstart", startMusic);
-  }).catch(()=>{});
-}
-
-document.addEventListener("click", startMusic);
-document.addEventListener("scroll", startMusic);
-document.addEventListener("mousemove", startMusic);
-document.addEventListener("touchstart", startMusic);
-
-    // Mobile menu
+    const body = document.body;
+    const nav = document.getElementById('nav');
+    const siteShell = document.getElementById('site-shell');
+    const gateway = document.getElementById('gateway');
+    const gwEnterBtn = document.getElementById('gw-enter-btn');
+    const navLogoBtn = document.getElementById('nav-logo-btn');
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobile-menu');
-    hamburger.addEventListener('click', () => {
+    const portalBurst = document.getElementById('portal-burst');
+    const sectionAtmosphere = document.querySelector('.section-atmosphere');
+    const overlayVignette = document.querySelector('.overlay-vignette');
+    const music = document.getElementById('bgmusic');
+    const sections = Array.from(document.querySelectorAll('.portal-section'));
+    const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
+    const mobileLinks = Array.from(document.querySelectorAll('.mobile-menu a'));
+    let currentIndex = 0;
+    let isTransitioning = false;
+    let isGateway = true;
+    let musicStarted = false;
+
+    music.volume = 0.2;
+
+    const sectionTheme = {
+      about: { color:'#ff1744', rgb:'255,23,68' },
+      research: { color:'#a855f7', rgb:'168,85,247' },
+      experience: { color:'#00cfc8', rgb:'0,207,200' },
+      education: { color:'#ff6a00', rgb:'255,106,0' },
+      publications: { color:'#0080ff', rgb:'0,128,255' },
+      contact: { color:'#ff2d78', rgb:'255,45,120' }
+    };
+
+    function setTheme(section){
+      const t = sectionTheme[section] || sectionTheme.about;
+      document.documentElement.style.setProperty('--accent', t.color);
+      document.documentElement.style.setProperty('--accent-rgb', t.rgb);
+      sectionAtmosphere.style.background = `radial-gradient(circle at 50% 120%, rgba(${t.rgb},.08) 0%, transparent 42%), radial-gradient(circle at 10% 10%, rgba(${t.rgb},.03), transparent 34%), radial-gradient(circle at 90% 20%, rgba(${t.rgb},.035), transparent 26%)`;
+      overlayVignette.style.background = `radial-gradient(circle at 50% 45%, transparent 35%, rgba(1,1,8,.18) 62%, rgba(1,1,8,.72) 100%), radial-gradient(circle at 50% 120%, rgba(${t.rgb},.05), transparent 48%)`;
+      nav.style.borderBottomColor = `rgba(${t.rgb},.12)`;
+      navLinks.forEach(a => a.classList.toggle('active', a.dataset.dest === section));
+      mobileLinks.forEach(a => a.classList.toggle('active', a.dataset.dest === section));
+    }
+
+    function flashPortal(rgb){
+      gsap.killTweensOf(portalBurst);
+      gsap.set(portalBurst,{opacity:0,scale:.92,filter:'blur(0px)',background:`radial-gradient(circle at center, rgba(255,255,255,.24) 0%, rgba(${rgb},.18) 18%, rgba(${rgb},.08) 36%, transparent 58%), radial-gradient(circle at center, rgba(${rgb},.16), transparent 66%)`});
+      gsap.timeline().to(portalBurst,{opacity:1,scale:1.25,duration:.16,ease:'power2.out'}).to(portalBurst,{opacity:0,scale:2.0,filter:'blur(12px)',duration:.58,ease:'power2.out'});
+    }
+
+    function markReveal(sectionId){
+      const active = document.querySelector(`#${sectionId}-section .section-scroll`) || document.querySelector(`#${sectionId}-section`);
+      if(!active) return;
+      active.querySelectorAll('.reveal').forEach((el, idx) => {
+        requestAnimationFrame(() => setTimeout(() => el.classList.add('visible'), 40 * idx));
+      });
+    }
+
+    function showSection(index, immediate=false){
+      if(index < 0 || index >= sections.length) return;
+      const current = sections[currentIndex];
+      const next = sections[index];
+      const targetId = next.dataset.section;
+      const theme = sectionTheme[targetId];
+      if(immediate){
+        sections.forEach(s => { s.classList.remove('active'); s.style.opacity='0'; s.style.visibility='hidden'; s.style.pointerEvents='none'; s.style.transform='translate3d(0,0,0) scale(1)'; s.style.filter='blur(0px)'; });
+        next.classList.add('active');
+        next.style.opacity='1'; next.style.visibility='visible'; next.style.pointerEvents='auto';
+        next.querySelector('.section-scroll').scrollTop = 0;
+        currentIndex = index;
+        setTheme(targetId);
+        markReveal(targetId);
+        return;
+      }
+      if(isTransitioning || current === next) return;
+      isTransitioning = true;
+      flashPortal(theme.rgb);
+      next.classList.add('active');
+      next.style.visibility='visible';
+      next.style.pointerEvents='auto';
+      next.querySelector('.section-scroll').scrollTop = 0;
+      gsap.set(next,{opacity:0,z:420,scale:1.06,rotationY:0,rotationX:0,filter:'blur(22px)'});
+      setTheme(targetId);
+      gsap.timeline({defaults:{ease:'expo.inOut'}, onComplete(){
+        current.classList.remove('active');
+        gsap.set(current,{clearProps:'all'});
+        gsap.set(next,{clearProps:'all'});
+        next.classList.add('active');
+        currentIndex = index;
+        isTransitioning = false;
+        markReveal(targetId);
+      }})
+      .to(current,{opacity:0,z:-820,scale:.78,rotationY:0,rotationX:0,filter:'blur(24px)',duration:.7},0)
+      .to(next,{opacity:1,z:0,scale:1,rotationY:0,rotationX:0,filter:'blur(0px)',duration:1.0},.08);
+    }
+
+    function enterSite(){
+  if(!isGateway || isTransitioning) return;
+  isGateway = false;
+  isTransitioning = true;
+
+  const gwContent = gateway.querySelector('.gateway-content') || gateway.querySelector('.gateway-inner');
+  const firstSection = sections[0];
+  const theme = sectionTheme.about;
+
+  flashPortal(theme.rgb);
+  body.classList.add('entered');
+
+  firstSection.classList.add('active');
+  firstSection.style.visibility = 'visible';
+  firstSection.style.pointerEvents = 'auto';
+  firstSection.querySelector('.section-scroll').scrollTop = 0;
+
+  gsap.set(firstSection,{opacity:0,z:420,scale:1.06,rotationY:0,rotationX:0,filter:'blur(22px)'});
+  setTheme('about');
+
+  gsap.timeline({
+    defaults:{ease:'expo.inOut'},
+    onComplete(){
+      gateway.style.display = 'none';
+      nav.classList.add('visible');
+      gsap.set(nav,{opacity:1,y:0});
+      gsap.set(firstSection,{clearProps:'all'});
+      firstSection.classList.add('active');
+      currentIndex = 0;
+      isTransitioning = false;
+      markReveal('about');
+    }
+  })
+  .to(gwContent,{opacity:0,z:-820,scale:.78,rotationY:0,rotationX:0,filter:'blur(24px)',duration:.7},0)
+  .to(gateway,{opacity:0,duration:.7},0)
+  .to(firstSection,{opacity:1,z:0,scale:1,rotationY:0,rotationX:0,filter:'blur(0px)',duration:1.0},.08);
+}
+
+    function returnToGateway(){
+  if(isGateway || isTransitioning) return;
+  isTransitioning = true;
+  music.pause();
+  musicStarted = false;
+  document.addEventListener('click', startMusicOnInteraction);
+
+  const current = sections[currentIndex];
+  const gwContent = gateway.querySelector('.gateway-content') || gateway.querySelector('.gateway-inner');
+  const rgb = sections[currentIndex].dataset.rgb || '255,23,68';
+
+  nav.classList.remove('visible');
+  gateway.style.display = 'flex';
+  gateway.style.opacity = '1';
+
+  gsap.set(gwContent,{opacity:0,z:420,scale:1.06,rotationY:0,rotationX:0,filter:'blur(22px)'});
+  flashPortal(rgb);
+
+  gsap.timeline({
+    defaults:{ease:'expo.inOut'},
+    onComplete(){
+      body.classList.remove('entered');
+      sections.forEach(s => {
+        s.classList.remove('active');
+        gsap.set(s,{clearProps:'all'});
+      });
+      gsap.set(gwContent,{clearProps:'all'});
+      isGateway = true;
+      isTransitioning = false;
+    }
+  })
+  .to(current,{opacity:0,z:-820,scale:.78,rotationY:0,rotationX:0,filter:'blur(24px)',duration:.7},0)
+  .to(gateway,{opacity:1,duration:.7},0)
+  .to(gwContent,{opacity:1,z:0,scale:1,rotationY:0,rotationX:0,filter:'blur(0px)',duration:1.0},.08);
+}
+
+  function buildGatewayParticles(){
+  const wrap = document.getElementById('gateway-particles');
+  wrap.innerHTML = '';
+  const count = 160;
+
+  for(let i=0;i<count;i++){
+    const span = document.createElement('span');
+    span.className = 'gateway-particle';
+
+    const x = Math.random() * window.innerWidth;
+    const drift = (Math.random() - 0.5) * 40;
+    const sz = 2 + Math.random() * 4;
+
+    span.style.left = `${x}px`;
+    span.style.bottom = `${-20 - Math.random() * 70}px`;
+    span.style.width = `${sz}px`;
+    span.style.height = `${sz}px`;
+    span.style.opacity = `${0.12 + Math.random() * 0.35}`;
+    span.style.animationDuration = `${10 + Math.random() * 14}s`;
+    span.style.animationDelay = `${-Math.random() * 14}s`;
+
+    span.dataset.baseX = x;
+    span.dataset.drift = drift;
+
+    wrap.appendChild(span);
+  }
+}
+
+    hamburger.addEventListener('click', ()=>{
       const isOpen = mobileMenu.classList.toggle('open');
       hamburger.setAttribute('aria-expanded', isOpen);
     });
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
+    [...navLinks, ...mobileLinks].forEach(link => {
+      link.addEventListener('click', ()=>{
+        const idx = sections.findIndex(s => s.dataset.section === link.dataset.dest);
+        if(idx >= 0) showSection(idx);
         mobileMenu.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-expanded','false');
       });
     });
+    navLogoBtn.addEventListener('click', returnToGateway);
+    gwEnterBtn.addEventListener('click', enterSite);
 
-    // Active nav
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    function setActiveLink() {
-      let current = '';
-      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
-      navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
+    // Music starts on first click/interaction AFTER entering the site (not on Enter itself)
+    function startMusicOnInteraction(){
+      if(!isGateway && !musicStarted){
+        music.play().catch(()=>{});
+        musicStarted = true;
+        document.removeEventListener('click', startMusicOnInteraction);
+      }
     }
-    window.addEventListener('scroll', setActiveLink, { passive: true });
-    setActiveLink();
+    document.addEventListener('click', startMusicOnInteraction);
 
-    // Scroll reveal
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-    }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    function observeSectionReveals(){
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('visible'); });
+      }, { threshold: .08, rootMargin: '0px 0px -20px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }
+    observeSectionReveals();
+    buildGatewayParticles();
 
-    // Nav glow
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      nav.style.boxShadow = window.scrollY > 20
-        ? '0 4px 40px rgba(229,0,37,.08), 0 1px 0 rgba(229,0,37,.12)'
-        : 'none';
-    }, { passive: true });
-
-
-    /* ═══════════════════════════════════════════════════════════════
-       FULL-PAGE CANVAS — Particles + Wireframe Geometry + Connections
-       Runs across the ENTIRE viewport at all times
-    ═══════════════════════════════════════════════════════════════ */
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let W, H, mouseX = -1000, mouseY = -1000;
+let mouseVX = 0, mouseVY = 0;
+let lastMouseX = -1000, lastMouseY = -1000;
+let cursorWake = 0;
+    function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    window.addEventListener('resize', () => {
+  resize();
+  buildGatewayParticles();
+});
+resize();
+   document.addEventListener('mousemove', e => {
+  mouseVX = e.clientX - lastMouseX;
+  mouseVY = e.clientY - lastMouseY;
 
-    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-    window.addEventListener('resize', resize);
-    resize();
+  lastMouseX = e.clientX;
+  lastMouseY = e.clientY;
 
-    // Track mouse for interactive glow
-    document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+  mouseX = e.clientX;
+  mouseY = e.clientY;
 
-    // ── PARTICLES ──
-    const PCOUNT = 80;
+  const speed = Math.hypot(mouseVX, mouseVY);
+  cursorWake = Math.min(1, speed / 14);
+
+  if(!isGateway) return;
+
+  const particles = document.querySelectorAll('.gateway-particle');
+
+  particles.forEach((p) => {
+    const rect = p.getBoundingClientRect();
+    const px = rect.left + rect.width / 2;
+    const py = rect.top + rect.height / 2;
+    const dx = px - e.clientX;
+    const dy = py - e.clientY;
+    const dist = Math.hypot(dx, dy);
+
+    const repelRadius = 120;
+    if(dist < repelRadius && dist > 0){
+      const force = (1 - dist / repelRadius);
+      const strength = force * force * 50;
+      p.style.marginLeft = ((dx / dist) * strength) + 'px';
+      p.style.marginTop = ((dy / dist) * strength) + 'px';
+    } else {
+      p.style.marginLeft = '0px';
+      p.style.marginTop = '0px';
+    }
+  });
+});
+
+    let canvasColorR = 255, canvasColorG = 23, canvasColorB = 68;
+    let targetR = 255, targetG = 23, targetB = 68;
+    function updateCanvasColor(){
+      const [r,g,b] = (getComputedStyle(document.documentElement).getPropertyValue('--accent-rgb').trim() || '255,23,68').split(',').map(v => parseInt(v.trim(), 10));
+      targetR = r; targetG = g; targetB = b;
+    }
+    function lerpColor(){
+      canvasColorR += (targetR - canvasColorR) * .02;
+      canvasColorG += (targetG - canvasColorG) * .02;
+      canvasColorB += (targetB - canvasColorB) * .02;
+    }
+    function rgb(alpha){ return `rgba(${Math.round(canvasColorR)},${Math.round(canvasColorG)},${Math.round(canvasColorB)},${alpha})`; }
+    function emberColor(alpha){
+      const warmR = Math.min(255, canvasColorR + 18);
+      const warmG = Math.min(255, canvasColorG + 10);
+      const warmB = Math.max(0, canvasColorB - 6);
+      return `rgba(${Math.round(warmR)},${Math.round(warmG)},${Math.round(warmB)},${alpha})`;
+    }
+
+    const PCOUNT = 150;
+    const GCOUNT = 0;
     const parts = [];
+    const geos = [];
 
-    function createParticle(randomY) {
+    function createParticle(randomY=true){
+  return {
+    x: Math.random() * W,
+    y: randomY ? Math.random() * H : H + Math.random() * 140,
+    vx: (Math.random() - .5) * .16,
+    vy: -(Math.random() * .60 + .16),
+    size: Math.random() * 3.0 + .5,
+    elongation: 1.35 + Math.random() * 1.1,
+    baseOpacity: Math.random() * .62 + .14,
+    life: 0,
+    maxLife: Math.random() * 900 + 420,
+    flicker: Math.random() * Math.PI * 2,
+    flickerSpeed: .025 + Math.random() * .045,
+    warm: Math.random() < .35
+  };
+}
+    for(let i=0;i<PCOUNT;i++) parts.push(createParticle(true));
+
+    function createGeo(){
       return {
-        x: Math.random() * W,
-        y: randomY ? Math.random() * H : H + Math.random() * 100,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: -(Math.random() * 0.5 + 0.12),
-        size: Math.random() * 2.5 + 0.4,
-        baseOpacity: Math.random() * 0.55 + 0.15,
-        life: 0,
-        maxLife: Math.random() * 700 + 350
+        x: Math.random()*W,
+        y: Math.random()*H,
+        size: Math.random()*55+16,
+        rot: Math.random()*Math.PI*2,
+        rotV: (Math.random()-.5)*.003,
+        dx: (Math.random()-.5)*.12,
+        dy: (Math.random()-.5)*.08,
+        opacity: Math.random()*.06+.015,
+        sides: [3,4,5,6,8][Math.floor(Math.random()*5)],
+        phase: Math.random()*Math.PI*2
       };
     }
-    for (let i = 0; i < PCOUNT; i++) parts.push(createParticle(true));
+    for(let i=0;i<GCOUNT;i++) geos.push(createGeo());
 
-    function updateParticle(p) {
+    function updateParticle(p){
       p.x += p.vx;
       p.y += p.vy;
       p.life++;
-      if (p.life > p.maxLife || p.y < -30 || p.x < -30 || p.x > W + 30) {
-        Object.assign(p, createParticle(false));
-      }
+      p.flicker += p.flickerSpeed;
+      if(p.life > p.maxLife || p.y < -30 || p.x < -30 || p.x > W + 30){ Object.assign(p, createParticle(false)); }
     }
-
-    function drawParticle(p) {
+    function drawParticle(p){
       const fadeIn = Math.min(p.life / 80, 1);
       const fadeOut = Math.min((p.maxLife - p.life) / 80, 1);
-      const a = p.baseOpacity * fadeIn * fadeOut;
+      const flick = .72 + .28 * Math.sin(p.flicker);
+      const a = p.baseOpacity * fadeIn * fadeOut * flick;
 
-      // Mouse proximity glow boost
-      const dx = p.x - mouseX, dy = p.y - mouseY;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const boost = dist < 150 ? (1 - dist / 150) * 0.5 : 0;
+      // Skip nearly invisible particles
+      if(a < 0.02) return;
 
-      // Core
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(229,0,37,${a + boost})`;
-      ctx.fill();
-
-      // Glow
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size * 4, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(229,0,37,${(a + boost) * 0.12})`;
-      ctx.fill();
-    }
-
-    // ── CONNECTIONS ──
-    function drawConnections() {
-      const maxD = 110;
-      for (let i = 0; i < parts.length; i++) {
-        for (let j = i + 1; j < parts.length; j++) {
-          const dx = parts[i].x - parts[j].x;
-          const dy = parts[i].y - parts[j].y;
-          const d = dx * dx + dy * dy;
-          if (d < maxD * maxD) {
-            const a = (1 - Math.sqrt(d) / maxD) * 0.05;
-            ctx.beginPath();
-            ctx.moveTo(parts[i].x, parts[i].y);
-            ctx.lineTo(parts[j].x, parts[j].y);
-            ctx.strokeStyle = `rgba(229,0,37,${a})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
+      // Visual-only repulsion offset
+      const dxm = mouseX - p.x;
+      const dym = mouseY - p.y;
+      const dist = dxm * dxm + dym * dym;
+      const repelSq = 6400; // 80*80
+      let offX = 0, offY = 0;
+      if(dist < repelSq && dist > 0){
+        const d = Math.sqrt(dist);
+        const force = (1 - d / 80);
+        const strength = force * force * 28;
+        offX = -(dxm / d) * strength;
+        offY = -(dym / d) * strength;
       }
+
+      const drawX = p.x + offX;
+      const drawY = p.y + offY;
+
+      const boostDist = Math.sqrt(dist);
+      const boost = boostDist < 120 ? (1 - boostDist / 120) * .18 : 0;
+
+      // Core ember
+      ctx.beginPath();
+      ctx.ellipse(drawX, drawY, p.size, p.size * p.elongation, 0, 0, Math.PI * 2);
+      ctx.fillStyle = p.warm ? emberColor(a + boost) : rgb(a + boost);
+      ctx.fill();
     }
-
-    // ── GEOMETRIC WIREFRAMES ──
-    const geos = [];
-    const GCOUNT = 10;
-
-    function createGeo() {
-      return {
-        x: Math.random() * W,
-        y: Math.random() * H,
-        size: Math.random() * 55 + 15,
-        rot: Math.random() * Math.PI * 2,
-        rotV: (Math.random() - 0.5) * 0.003,
-        dx: (Math.random() - 0.5) * 0.12,
-        dy: (Math.random() - 0.5) * 0.08,
-        opacity: Math.random() * 0.06 + 0.015,
-        sides: [3, 4, 5, 6, 8][Math.floor(Math.random() * 5)],
-        phase: Math.random() * Math.PI * 2
-      };
+    function updateGeo(g){
+      g.rot += g.rotV; g.x += g.dx; g.y += g.dy; g.phase += .008;
+      if(g.x < -120) g.x = W + 120; if(g.x > W + 120) g.x = -120;
+      if(g.y < -120) g.y = H + 120; if(g.y > H + 120) g.y = -120;
     }
-    for (let i = 0; i < GCOUNT; i++) geos.push(createGeo());
-
-    function updateGeo(g) {
-      g.rot += g.rotV;
-      g.x += g.dx;
-      g.y += g.dy;
-      g.phase += 0.008;
-      if (g.x < -120) g.x = W + 120;
-      if (g.x > W + 120) g.x = -120;
-      if (g.y < -120) g.y = H + 120;
-      if (g.y > H + 120) g.y = -120;
-    }
-
-    function drawGeo(g) {
-      const pulse = 1 + Math.sin(g.phase) * 0.12;
+    function drawGeo(g){
+      const pulse = 1 + Math.sin(g.phase) * .12;
       const s = g.size * pulse;
-
-      // Mouse proximity boost
       const dx = g.x - mouseX, dy = g.y - mouseY;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const boost = dist < 200 ? (1 - dist / 200) * 0.06 : 0;
-
-      ctx.save();
-      ctx.translate(g.x, g.y);
-      ctx.rotate(g.rot);
-
-      // Outer shape
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      const boost = dist < 200 ? (1 - dist / 200) * .06 : 0;
+      ctx.save(); ctx.translate(g.x,g.y); ctx.rotate(g.rot);
       ctx.beginPath();
-      for (let i = 0; i <= g.sides; i++) {
-        const angle = (Math.PI * 2 / g.sides) * i - Math.PI / 2;
-        const px = Math.cos(angle) * s;
-        const py = Math.sin(angle) * s;
-        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+      for(let i=0;i<=g.sides;i++){
+        const angle = (Math.PI*2/g.sides)*i - Math.PI/2;
+        const px = Math.cos(angle)*s, py = Math.sin(angle)*s;
+        i===0 ? ctx.moveTo(px,py) : ctx.lineTo(px,py);
       }
-      ctx.closePath();
-      ctx.strokeStyle = `rgba(229,0,37,${g.opacity + boost})`;
-      ctx.lineWidth = 0.6;
-      ctx.stroke();
-
-      // Inner shape (smaller)
-      ctx.beginPath();
-      const inner = s * 0.5;
-      for (let i = 0; i <= g.sides; i++) {
-        const angle = (Math.PI * 2 / g.sides) * i - Math.PI / 2 + 0.2;
-        const px = Math.cos(angle) * inner;
-        const py = Math.sin(angle) * inner;
-        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+      ctx.closePath(); ctx.strokeStyle = rgb(g.opacity + boost); ctx.lineWidth = .6; ctx.stroke();
+      ctx.beginPath(); const inner = s * .5;
+      for(let i=0;i<=g.sides;i++){
+        const angle = (Math.PI*2/g.sides)*i - Math.PI/2 + .2;
+        const px = Math.cos(angle)*inner, py = Math.sin(angle)*inner;
+        i===0 ? ctx.moveTo(px,py) : ctx.lineTo(px,py);
       }
-      ctx.closePath();
-      ctx.strokeStyle = `rgba(229,0,37,${(g.opacity + boost) * 0.5})`;
-      ctx.lineWidth = 0.4;
-      ctx.stroke();
-
+      ctx.closePath(); ctx.strokeStyle = rgb((g.opacity + boost) * .5); ctx.lineWidth = .4; ctx.stroke();
       ctx.restore();
     }
+    function drawConnections(){}
 
-    // ── MOUSE TRAIL RING ──
-    function drawMouseRing() {
-      if (mouseX < 0) return;
-      ctx.beginPath();
-      ctx.arc(mouseX, mouseY, 60, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(229,0,37,0.04)';
-      ctx.lineWidth = 1;
-      ctx.stroke();
+    function drawMouseRing(){}
 
-      ctx.beginPath();
-      ctx.arc(mouseX, mouseY, 3, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(229,0,37,0.15)';
-      ctx.fill();
-    }
-
-    // ── ANIMATION LOOP ──
-    function animate() {
-      ctx.clearRect(0, 0, W, H);
-
-      // Geos
-      geos.forEach(g => { updateGeo(g); drawGeo(g); });
-
-      // Particles
+    function animate(){
+      ctx.clearRect(0,0,W,H);
+cursorWake *= 0.80;
+if(cursorWake < 0.01) cursorWake = 0;
+updateCanvasColor(); lerpColor();
+      if(GCOUNT > 0){
+  geos.forEach(g => { updateGeo(g); drawGeo(g); });
+}
       parts.forEach(p => { updateParticle(p); drawParticle(p); });
-
-      // Connections
-      drawConnections();
-
-      // Mouse ring
-      drawMouseRing();
-
+      drawConnections(); drawMouseRing();
       requestAnimationFrame(animate);
     }
     animate();
-  </script>
 
+    window.addEventListener('load', ()=>{
+      setTheme('about');
+
+      // GPU warmup: force browser to rasterize all sections upfront
+      // so the first transition isn't janky
+      sections.forEach(s => {
+        s.style.visibility = 'visible';
+        s.style.opacity = '0.001';
+        s.style.pointerEvents = 'none';
+      });
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          sections.forEach((s, i) => {
+            if(i === 0){
+              s.style.opacity = '';
+              s.style.visibility = '';
+              s.style.pointerEvents = '';
+            } else {
+              s.style.visibility = 'hidden';
+              s.style.opacity = '0';
+              s.style.pointerEvents = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
 </body>
 </html>
