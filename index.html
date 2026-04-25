@@ -518,20 +518,22 @@ body.entered .audio-toggle{display:flex}
 
 
     @media(max-width:900px){.nav-links{display:none}.hamburger{display:flex}.about-grid{grid-template-columns:1fr;gap:40px}.profile-frame{margin:0 auto}.section-scroll{padding:36px 0 48px}.portal-root{perspective:1200px}}
-    @media (max-width: 600px){
+ @media (max-width: 600px){
   .container{padding:0 20px}
   .link-bar,.contact-links{gap:6px}
   .link-btn{padding:8px 12px;font-size:.55rem}
   .section-heading{font-size:clamp(1.55rem,8vw,2.2rem)}
-      .section-scroll{
-  padding-bottom:140px;
-}
 
-.audio-toggle{
-  left:auto;
-  right:24px;
-  bottom:84px;
-}
+  .section-scroll{
+    padding-top:80px;
+    padding-bottom:180px;
+  }
+
+  .audio-toggle{
+    left:auto !important;
+    right:24px !important;
+    bottom:92px !important;
+  }
 
   .gateway{
     overflow:hidden;
